@@ -1,7 +1,7 @@
 # CUPS-GUI
 
 ##Introduction
-This program is being made for educational purposes. We are a class from a highschool in Granada (IES Ilíberis). 
+This program is being made for educational purposes. We are a class from a institute in Granada, Spain (IES Ilíberis). 
 Our group is formed by:
   - <a href="https://github.com/alexhzr">alexhzr</a> (me)
   - <a href="https://github.com/Franciscorodr">Franciscorodr</a>
