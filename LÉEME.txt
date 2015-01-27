@@ -1,0 +1,5 @@
+#Para hacer funcionar el entorno:
+
+	1. El XML debe estar en la carpeta de instalación de Tomcat (por defecto: C:\Program Files\Apache Software Foundation\Apache Tomcat\bin).
+	2. Crear un enlace en la carpeta del proyecto hacia el XML dentro de la carpeta mencionada. Se usa MKLINK (como administrador) para esto: mklink /H ruta/proyecto/git /ruta/xml/carpeta/tomcat
+	3. Servidor OpenLDAP en la IP 192.168.1.10 (se puede modificar dentro del proyecto).
