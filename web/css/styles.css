@@ -13,12 +13,13 @@
 }
 
 .policy-statements {
-	position: inherit;
+	position: absolute;
 	background-color: #cfc;
 	border: 1px solid #999;
 	margin: 30px auto;
 	width: 600px;
 	height: 80px;
+	display: none;
 }
 
 .printer-menu, .policy-statements { 
