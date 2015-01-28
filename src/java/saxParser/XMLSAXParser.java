@@ -19,12 +19,12 @@ import org.xml.sax.SAXException;
  * @author Álex
  */
 public class XMLSAXParser {
-    public static Hashtable getHashtable() throws ParserConfigurationException, SAXException, IOException {
+    public static Hashtable getHashtable(String path) throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-            SAXParser saxParser = saxParserFactory.newSAXParser();
-            MyHandler handler = new MyHandler();
-            saxParser.parse(new File("cups-operations.xml"), handler);
-            Hashtable<String, String> hashContainer = handler.getHashContainer();
-            return hashContainer;
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+        MyHandler handler = new MyHandler();
+        saxParser.parse(new File(path+"cups-operations.xml"), handler);
+        Hashtable<String, String> hashContainer = handler.getHashContainer();
+        return hashContainer;
     }
 }

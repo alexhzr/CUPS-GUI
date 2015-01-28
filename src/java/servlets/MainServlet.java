@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +35,8 @@ public class MainServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         try {
-            hashContainer = XMLSAXParser.getHashtable();
+            ServletContext context = getServletContext();
+            hashContainer = XMLSAXParser.getHashtable(context.getResource("/WEB-INF").getPath());
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
