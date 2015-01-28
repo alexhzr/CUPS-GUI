@@ -9,8 +9,6 @@ $(".policy-statements ul").droppable({
 function deleteItem(item) {
 	$(item).parent().remove();
 }
-
-
 $( "button" ).click(function() {
  $( ".policy-statements" ).show( "slow" );
 });
