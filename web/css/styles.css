@@ -1,0 +1,36 @@
+#wrapper {
+	margin: 100px auto;
+	width: 800px;
+}
+
+.printer-menu {
+	background-color: #090;
+	position: relative;
+	margin: 0 auto;
+	border: 1px solid #000;
+	width: 100%;
+	height: 150px;
+}
+
+.policy-statements {
+	position: inherit;
+	background-color: #cfc;
+	border: 1px solid #999;
+	margin: 30px auto;
+	width: 600px;
+	height: 80px;
+}
+
+.printer-menu, .policy-statements { 
+	border-radius: 15px;
+	padding: 10px;
+}
+
+#policy-menu {
+	z-index: 2;
+	border: 1px solid;
+	margin-top: 100px;
+	position: fixed;
+	height: 20%;
+	width: 100px;
+}
