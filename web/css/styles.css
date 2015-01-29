@@ -1,4 +1,14 @@
 /*CSS para el menú del contenedor*/
+
+#header {
+	height: 50%;
+	background-color: lightblue;
+}
+
+#header h1 {
+	height:100%;
+	margin:0;
+}
 #wrapper {
 	margin: 100px auto;
 	width: 60%;

@@ -12,6 +12,10 @@
 		<script type="text/javascript" src="js/scripts.js"></script>
 	</head>
 	<body>
+		<div id="header">
+			<h1>Hi, admin</h1>
+			<input id="exitButton" type="button" />
+		</div>
 		<div id="policy-menu">menu politicas
 			<ul>
 				<li>Opcion 1</li>
@@ -21,25 +25,15 @@
 			</ul>
 		</div>
 		<div id="wrapper">
-
-			<div class="printer-menu">impresora1
-				<button>Mostrar politicas</button>
-				<div class="policy-statements">
-				<button class="hide">cerrar</button>
+			<div class="printer-menu" id="4321">impresora1
+				<button class="show" onclick="showDiv('1234')">Mostrar politicas</button>
+				<div class="policy-statements" id="1234" >
+				<button class="hide" onclick="hideDiv('1234')">cerrar</button>
 					<ul>
 							<li class="placeholder">Introduce nuevas politicas</li>
 					</ul>
 				</div>
-			</div>
-			<div class="printer-menu">impresora2
-			<button>Mostrar politicas</button>
-				<div class="policy-statements">
-				<button class="hide">cerrar</button>
-					<ul>				
-							<li class="placeholder">Introduce nuevas politicas</li>
-					</ul>
-				</div>
-			</div>
+			</div>			
 		</div>
 	</body>
 </html>
