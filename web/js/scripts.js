@@ -8,7 +8,10 @@ $(document).ready( function() {
 		}
 	});
 	$( "button" ).click(function() {
-	 $( ".policy-statements" ).show( "slow" );
+		$( ".policy-statements" ).show( "slow" );
+	});
+	$( ".hide" ).click(function() {
+		$( ".policy-statements" ).hide( "slow" );
 	});
 })
 

@@ -1,30 +1,33 @@
+/*CSS para el menú del contenedor*/
 #wrapper {
 	margin: 100px auto;
-	width: 800px;
+	width: 60%;
+	/*background-color:#BDE6BF; /* Color de Fondo */
 }
-
+/**/
 .printer-menu {
-	background-color: #090;
+	background-color: lightblue;
 	position: relative;
 	margin: 0 auto;
 	border: 1px solid #000;
 	width: 100%;
 	height: 150px;
+	padding: 10px;
 }
 
 .policy-statements {
-	position: absolute;
+	position: relative;
 	background-color: #cfc;
 	border: 1px solid #999;
 	margin: 30px auto;
-	width: 600px;
+	width: 100%;
 	height: 80px;
 	display: none;
 }
 
 .printer-menu, .policy-statements { 
 	border-radius: 15px;
-	padding: 10px;
+	
 }
 
 #policy-menu {
