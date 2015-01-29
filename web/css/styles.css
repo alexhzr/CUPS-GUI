@@ -1,19 +1,31 @@
 /*CSS para el menú del contenedor*/
+body {
+	margin: 0;
+}
 
 #header {
-	height: 50%;
+	height: 50px;
 	background-color: lightblue;
+	padding: 0 5px 0 5px;
 }
 
 #header h1 {
 	height:100%;
 	margin:0;
+	display: inline;
 }
+
+#exitButton {
+	float: right;
+	margin-top: 5px;
+}
+
 #wrapper {
 	margin: 100px auto;
 	width: 60%;
 	/*background-color:#BDE6BF; /* Color de Fondo */
 }
+
 /**/
 .printer-menu {
 	background-color: lightblue;

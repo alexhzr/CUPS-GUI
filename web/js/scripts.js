@@ -9,6 +9,11 @@ $(document).ready( function() {
 		}
 
 	});
+	
+	$("#exitButton").button({
+		icons: { primary: "ui-icon-power", secondary: null }
+	});
+	
 });
 /*Oculta el hide por el cual el id será igual que el que le pase por la funcion onclick*/
 function hideDiv(id) {
