@@ -54,9 +54,11 @@ body {
 
 #policy-menu {
 	z-index: 2;
-	border: 1px solid;
-	margin-top: 100px;
+	border: 5px ridge;
+	margin-top: 8%;
+	background-color: #cfc;
 	position: fixed;
 	height: 20%;
-	width: 100px;
+	width: 15%;
+	display: none;
 }
