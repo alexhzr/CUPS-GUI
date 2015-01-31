@@ -45,6 +45,7 @@ body {
 	width: 100%;
 	height: 80px;
 	display: none;
+	overflow-y:auto;
 }
 
 .printer-menu, .policy-statements { 
