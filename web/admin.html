@@ -16,23 +16,30 @@
 		</div>
 		<div id="policy-menu">
 		<h3>Politicas de impresión</h3>
-			<ul>
-				<li>Opcion 1</li>
-				<li>Opcion 2</li>
-				<li>Opcion 3</li>
-				<li>Opcion 4</li>
-			</ul>
+			<p>Opcion 1</p>
+			<p>Opcion 2</p>
+			<p>Opcion 3</p>
+			<p>Opcion 4</p>
 		</div>
 		<div id="wrapper">
-			<div class="printer-menu" id="4321">impresora1
-				<button class="show" onclick="showDiv('1234')">Mostrar politicas</button>
-				<div class="policy-statements" id="1234" >
-				<button class="hide" onclick="hideDiv('1234')">cerrar</button>
-					<ul>
-							<li class="placeholder">Introduce nuevas politicas</li>
-					</ul>
+			<div class="printer-menu" id="4321">
+				<div class="printer-info">
+					<h3>impresora1</h3>
+					<div class="queue">Queue: 17</div>
+					<div class="status">Status: On</div>
 				</div>
-			</div>			
+				<button class="show-hide" onclick="showHide('1234')">Show/Hide policies</button>
+				<div class="policy-statements" id="1234" >
+					<ul>
+						<li><a href="#1234-admin">Admin</a></li>
+						<li><a href="#1234-design">Design</a></li>
+						<li><a href="#1234-sales">Sales</a></li>
+					</ul>
+					<div id="1234-admin"></div>
+					<div id="1234-design"></div>
+					<div id="1234-sales"></div>
+				</div>
+			</div>	
 		</div>
 	</body>
 </html>

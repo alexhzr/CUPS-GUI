@@ -1,29 +1,27 @@
 $(document).ready( function() {
-	$("#policy-menu li").draggable({
+	$("#policy-menu p").draggable({
 		helper: "clone"
-	});
-	
-	$(".policy-statements ul").droppable({
-			drop: function( event, ui ) {
-				$( "<li></li>" ).html( ui.draggable.text() + "<input type='button' onclick='deleteItem(this)' value='Borrar'/>" ).appendTo( this );
-		}
-
 	});
 	
 	$("#exitButton").button({
 		icons: { primary: "ui-icon-power", secondary: null }
 	});
-		
+	
+	$(".show-hide").button();
+	
+	$(".policy-statements").tabs();
+	
+	$(".policy-statements div").droppable({
+			drop: function( event, ui ) {
+				$( "<p></p>" ).html( ui.draggable.text() + "<input type='button' onclick='deleteItem(this)' value='Borrar'/>" ).appendTo( this );
+		}
+	});
+	
 });
-/*Oculta el hide por el cual el id será igual que el que le pase por la funcion onclick*/
-function hideDiv(id) {
-	$("#"+id).hide("slow");
-	$("#policy-menu").hide("slow");
-}
 
-function showDiv(id) {
-	$("#"+id).show("slow");
-	$("#policy-menu").show("slow");
+function showHide(id) {
+	$("#"+id).toggle("slow");
+	$("#policy-menu").toggle("slide");
 }
 
 function deleteItem(item) {
