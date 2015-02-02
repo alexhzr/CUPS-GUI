@@ -1,4 +1,7 @@
 $(document).ready( function() {
+
+	$( "#policy-menu" ).draggable();
+	
 	$("#policy-menu p").draggable({
 		helper: "clone"
 	});
@@ -18,10 +21,6 @@ $(document).ready( function() {
 					$( "<p></p>" ).html( ui.draggable.text() + "<input type='button' onclick='deleteItem(this)' value='Borrar'/>" ).appendTo( this );
 				}
 		}
-	});
-	
-	 $(function() {
-		$( "#policy-menu" ).draggable();
 	});
 	
 });
