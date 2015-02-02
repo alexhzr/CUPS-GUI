@@ -7,7 +7,7 @@ $(document).ready( function() {
 		icons: { primary: "ui-icon-power", secondary: null }
 	});
 	
-	$(".show-hide").button();
+	$(".show-hide-button").button();
 	
 	$(".policy-statements").tabs();
 	
@@ -27,8 +27,8 @@ $(document).ready( function() {
 });
 
 function showHide(id) {
-	$("#"+id).toggle("slow");
-	$("#policy-menu").toggle("slide");
+	$("#"+id).toggle("blind");
+	$("#policy-menu").toggle("drop");
 }
 
 function deleteItem(item) {
