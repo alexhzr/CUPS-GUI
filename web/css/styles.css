@@ -26,7 +26,9 @@ body {
 	width: 60%;
 	/*background-color:#BDE6BF; /* Color de Fondo */
 }
-
+#add-printer {
+	margin-bottom: 1em;
+}
 /**/
 .printer-menu {
 	background-color: lightblue;

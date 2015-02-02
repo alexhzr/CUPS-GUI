@@ -1,18 +1,10 @@
 $(document).ready( function() {
-
+	//Draggable y Droppable
 	$( "#policy-menu" ).draggable();
 	
 	$("#policy-menu p").draggable({
 		helper: "clone"
 	});
-	
-	$("#exitButton").button({
-		icons: { primary: "ui-icon-power", secondary: null }
-	});
-	
-	$(".show-hide-button").button();
-	
-	$(".policy-statements").tabs();
 	
 	$(".policy-statements div").droppable({
 			drop: function( event, ui ) {
@@ -22,6 +14,19 @@ $(document).ready( function() {
 				}
 		}
 	});
+	//
+	$("#exitButton").button({
+		icons: { primary: "ui-icon-power", secondary: null }
+	});
+	
+	$("#add-printer").button({
+		icons: { primary: "ui-icon-plusthick", secondary: null }
+	});
+	
+	$(".show-hide-button").button();
+	
+	$(".policy-statements").tabs();
+	
 	
 });
 
