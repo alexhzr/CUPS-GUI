@@ -13,8 +13,15 @@ $(document).ready( function() {
 	
 	$(".policy-statements div").droppable({
 			drop: function( event, ui ) {
-				$( "<p></p>" ).html( ui.draggable.text() + "<input type='button' onclick='deleteItem(this)' value='Borrar'/>" ).appendTo( this );
+				var clase = ui.draggable.context.className;
+				if (clase.contains("policy-option")) {					
+					$( "<p></p>" ).html( ui.draggable.text() + "<input type='button' onclick='deleteItem(this)' value='Borrar'/>" ).appendTo( this );
+				}
 		}
+	});
+	
+	 $(function() {
+		$( "#policy-menu" ).draggable();
 	});
 	
 });
