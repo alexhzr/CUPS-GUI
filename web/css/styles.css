@@ -50,14 +50,17 @@ body {
 	float: right;
 }
 
+.show-hide-button {
+	font-size: 0.9;
+}
+
 .policy-statements {
 	position: relative;
 	border: 1px solid #9cc;
 	margin: 1em 0 0 0;
 	width: 99%;
-	height: 10em;
+	min-height: 10em;
 	display: none;
-	overflow-y:auto;
 	font-size: smaller;
 }
 
