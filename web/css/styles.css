@@ -35,6 +35,11 @@ body {
 }
 
 /**/
+#delete-printer-confirm {
+	float:left; 
+	display:none;
+	width: 90em;
+}
 .printer-menu {
 	background-color: lightblue;
 	position: relative;

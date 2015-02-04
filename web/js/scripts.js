@@ -10,7 +10,7 @@ $(document).ready( function() {
 			drop: function( event, ui ) {
 				var clase = ui.draggable.context.className;
 				if (clase.contains("policy-option")) {					
-					$( "<p></p>" ).html( ui.draggable.text() + "<input type='button' onclick='deleteItem(this)' value='Borrar'/>" ).appendTo( this );
+					$( "<p></p>" ).html( ui.draggable.text() + "<input type='button' onclick='deleteItem(this)' value='Delete'/>" ).appendTo( this );
 				}
 		}
 	});
@@ -38,5 +38,21 @@ function showHide(id) {
 }
 
 function deleteItem(item) {
-	$(item).parent().remove();
+	$(function() {
+		$( "#delete-printer-confirm" ).dialog({
+			resizable: false,
+			height:50,
+			modal: true,
+			buttons: {
+				"Delete": function() {
+					$(item).parent().remove();
+					$( this ).dialog( "close" );
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	});
+
 }
