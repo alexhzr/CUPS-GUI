@@ -26,9 +26,14 @@ body {
 	width: 60%;
 	/*background-color:#BDE6BF; /* Color de Fondo */
 }
-#add-printer {
+.add-printer-button {
 	margin-bottom: 1em;
 }
+
+.delete-printer-button {
+	float: right;
+}
+
 /**/
 .printer-menu {
 	background-color: lightblue;

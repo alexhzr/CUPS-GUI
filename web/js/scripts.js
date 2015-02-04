@@ -14,20 +14,22 @@ $(document).ready( function() {
 				}
 		}
 	});
-	//
+	// buttons
 	$("#exitButton").button({
 		icons: { primary: "ui-icon-power", secondary: null }
 	});
 	
-	$("#add-printer").button({
+	$(".add-printer-button").button({
 		icons: { primary: "ui-icon-plusthick", secondary: null }
+	});
+	$(".delete-printer-button").button({
+		icons: { primary: "ui-icon-trash", secondary: null }
 	});
 	
 	$(".show-hide-button").button();
 	
 	$(".policy-statements").tabs();
-	
-	
+	//
 });
 
 function showHide(id) {

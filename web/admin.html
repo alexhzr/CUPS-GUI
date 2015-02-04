@@ -22,7 +22,7 @@
 			<p class="policy-option">Opcion 4</p>
 		</div>
 		<div id="wrapper">
-			<span id="add-printer">Add printer</span>
+			<span class="add-printer-button">Add printer</span>
 			<div class="printer-menu" id="4321">
 				<div class="printer-info">
 					<h3>impresora1</h3>
@@ -30,6 +30,7 @@
 					<div class="status">Status: On</div>
 				</div>
 				<button class="show-hide-button" onclick="showHide('1234')">Show/Hide policies</button>
+				<span class="delete-printer-button" onclick="deleteItem(this)">Delete</span>
 				<div class="policy-statements" id="1234" >
 					<ul>
 						<li><a href="#1234-admin">Admin</a></li>
@@ -38,9 +39,9 @@
 					</ul>
 					<div id="1234-admin"></div>
 					<div id="1234-design"></div>
-					<div id="1234-sales"></div>
+					<div id="1234-sales"></div>					
 				</div>
-			</div>	
+			</div>
 		</div>
 	</body>
 </html>
