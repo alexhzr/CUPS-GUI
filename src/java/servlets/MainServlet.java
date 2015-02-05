@@ -6,8 +6,13 @@
 package servlets;
 
 
+import com.unboundid.ldap.sdk.LDAPConnection;
+import com.unboundid.ldap.sdk.LDAPException;
+import controllers.ItemOperation;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import javax.xml.parsers.ParserConfigurationException;
 import operations.Operation;
@@ -30,7 +36,7 @@ import saxParser.XMLSAXParser;
  */
 @WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet"})
 public class MainServlet extends HttpServlet {    
-    Hashtable<String, String> hashContainer;
+    Hashtable<String, ItemOperation> hashContainer;
     
     public void init() throws ServletException {
         super.init();
@@ -57,17 +63,17 @@ public class MainServlet extends HttpServlet {
      */
     @SuppressWarnings("empty-statement")
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+            throws ServletException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, LDAPException {
         response.setContentType("text/html;charset=UTF-8");
         
         String codop = request.getParameter("op");
         if (codop != null) {
             if (hashContainer.containsKey(codop)) {
-                Class c = Class.forName("operations."+hashContainer.get(codop));
+                request.setAttribute("operationGroups", hashContainer.get(codop).getGroups());
+                Class c = Class.forName("operations."+hashContainer.get(codop).getClassName());
                 Operation operation = (Operation) c.newInstance();
                 operation.doIt(request, response);
             } else {
-                System.out.println("bad op");
                 RequestDispatcher rd = request.getRequestDispatcher("index.html");
                 rd.forward(request, response);
             }
@@ -76,8 +82,6 @@ public class MainServlet extends HttpServlet {
             rd.forward(request, response);
         } 
     }
-    
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -98,6 +102,8 @@ public class MainServlet extends HttpServlet {
         } catch (InstantiationException ex) {
             Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
+            Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LDAPException ex) {
             Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -120,6 +126,8 @@ public class MainServlet extends HttpServlet {
         } catch (InstantiationException ex) {
             Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
+            Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LDAPException ex) {
             Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

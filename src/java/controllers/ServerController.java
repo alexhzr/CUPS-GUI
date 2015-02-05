@@ -5,10 +5,12 @@
  */
 package controllers;
 
+
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -36,12 +38,12 @@ public class ServerController {
         private static final ServerController INSTANCE = new ServerController();
     }
     
-    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException {
+    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException, LDAPException {
         
         //Gets 'username', creates httpsession, redirect to jsp page. LDAP authentication is not enabled yet
-        String username = request.getParameter("username");
-        HttpSession session = request.getSession(true);
-        session.setAttribute("user", username);
+        HttpSession session = LDAPConn.getInstance().loadGroups(request);
+        session.setAttribute("user", request.getParameter("username"));
+        
         RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
         rd.forward(request, response);
         
@@ -58,7 +60,7 @@ public class ServerController {
             //Try connecting with those credentials
             c = new LDAPConnection("192.168.1.10", 389, "cn="+username+",ou=printing,dc=iliberis,dc=com", (String) password);
             
-            //If the connection goes OK, a HTTPSession is created with the username stored into 'username' session attribute
+            //If connection goes OK, a HTTPSession is created with the username stored into 'username' session attribute
             if (c.isConnected()) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("user", username);
@@ -87,7 +89,11 @@ public class ServerController {
     
     public void sample(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {
         try (PrintWriter out = response.getWriter()) {
-            
+            HttpSession session = request.getSession(false);
+            ArrayList<String> userGroups = (ArrayList<String>) session.getAttribute("groups");
+            for (String group : userGroups) {
+                out.write(group);
+            }
             out.println();
         } 
     }
@@ -103,5 +109,25 @@ public class ServerController {
             out.println("reboot");
         } 
     }
+    
+    private boolean checkUserPermissions() {
         
+        return true;
+    }
+    /*
+    private boolean checkUserPermissions(HttpServletRequest request, HttpServletResponse response) throws LDAPException {
+        if (request.getSession(false) == null) {
+            if (items.contains("*"))
+                return true;
+            else return false;
+        } else {
+            LDAPConnection c = LDAPConn.getInstance().getConnection();
+            
+            request.getSession(false).getAttribute("username");
+            if (items.contains("267") || (items.contains("*"))) 
+                return true;
+            else return false;
+        }
+    }
+    */    
 }

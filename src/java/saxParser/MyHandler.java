@@ -5,7 +5,10 @@
  */
 package saxParser;
 
+import controllers.ItemOperation;
+import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.List;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -16,22 +19,26 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class MyHandler extends DefaultHandler {
     private String key;
-    private String value;
-    public Hashtable<String, String> hashContainer = new Hashtable<String, String>();
+    private String className;
+    private String groups;
+    private ItemOperation itemOperation;
+    private Hashtable<String, ItemOperation> hashContainer = new Hashtable<String, ItemOperation>();
     
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             if (qName.equalsIgnoreCase("operation")) {
                key = attributes.getValue("id");
-               value = attributes.getValue("class");
+               className = attributes.getValue("class");
+               List<String> groups = Arrays.asList(attributes.getValue("groups").split(", "));
+               itemOperation = new ItemOperation(className, groups);
             }
     }
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase("operation")) {
-            hashContainer.put(key, value);
+            hashContainer.put(key, itemOperation);
         }
     }
 
-    public Hashtable<String, String> getHashContainer() {
+    public Hashtable<String, ItemOperation> getHashContainer() {
         return hashContainer;
     }
     

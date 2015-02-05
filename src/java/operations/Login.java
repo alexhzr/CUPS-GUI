@@ -5,6 +5,7 @@
  */
 package operations;
 
+import com.unboundid.ldap.sdk.LDAPException;
 import controllers.ServerController;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -28,6 +29,8 @@ public class Login extends Operation {
         } catch (InterruptedException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ServletException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LDAPException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

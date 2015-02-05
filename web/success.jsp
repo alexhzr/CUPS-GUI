@@ -25,5 +25,10 @@
             <input type="hidden" name="op" value="lqo381hx"/>
             <input type="submit" value="Log out"/>
         </form>
+        
+        <form method="POST" action="MainServlet">
+            <input type="hidden" name="op" value="mkxjhdy3"/>
+            <input type="submit" value="sample"/>
+        </form>
     </body>
 </html>

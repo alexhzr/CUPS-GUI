@@ -8,6 +8,7 @@ package saxParser;
 import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
+import controllers.ItemOperation;
  
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -24,7 +25,7 @@ public class XMLSAXParser {
         SAXParser saxParser = saxParserFactory.newSAXParser();
         MyHandler handler = new MyHandler();
         saxParser.parse(new File(path+"cups-operations.xml"), handler);
-        Hashtable<String, String> hashContainer = handler.getHashContainer();
+        Hashtable<String, ItemOperation> hashContainer = handler.getHashContainer();
         return hashContainer;
     }
 }
