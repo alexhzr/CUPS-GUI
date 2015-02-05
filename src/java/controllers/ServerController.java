@@ -9,6 +9,7 @@ import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.cups4j.CupsClient;
+import org.cups4j.CupsPrinter;
 import servlets.MainServlet;
 
 /**
@@ -102,6 +105,17 @@ public class ServerController {
         try (PrintWriter out = response.getWriter()) {
             out.println("reboot");
         } 
+    }
+    
+    public void listPrinter(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        PrintWriter out = response.getWriter();
+        // Cambiar la ip por la del servidor de cups
+        CupsClient client = new CupsClient("192.168.1.230", 631);
+        List<CupsPrinter> printer = client.getPrinters();
+        for(int i=0; i<printer.size(); i++) {
+            String name = printer.get(i).getName();
+            out.write(name);
+        }
     }
         
 }
