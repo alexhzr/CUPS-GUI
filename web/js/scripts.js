@@ -35,6 +35,9 @@ $(document).ready( function() {
 function showHide(id) {
 	$("#"+id).toggle("blind");
 	$("#policy-menu").toggle("drop");
+	$("html, body").animate({
+		scrollTop: $("#"+id).offset().top/2
+	}, 1000);
 }
 
 function deleteItem(item) {
