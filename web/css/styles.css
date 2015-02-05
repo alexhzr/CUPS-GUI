@@ -22,7 +22,7 @@ body {
 }
 
 #wrapper {
-	margin: 100px auto;
+	margin: 50px auto;
 	width: 60%;
 	/*background-color:#BDE6BF; /* Color de Fondo */
 }
@@ -40,6 +40,12 @@ body {
 	display:none;
 	width: 90em;
 }
+
+#delete-printer-icon {
+	float: left;
+	margin: 0.5em 0.3em;
+}
+
 .printer-menu {
 	background-color: lightblue;
 	position: relative;
@@ -94,4 +100,8 @@ body {
 	padding: 0 1em 1em 1em;
 	display: none;
 	border-radius: 10px;
+}
+
+.policy-option {
+	width: 100$;
 }

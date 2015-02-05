@@ -9,7 +9,7 @@ $(document).ready( function() {
 	$(".policy-statements div").droppable({
 			drop: function( event, ui ) {
 				var clase = ui.draggable.context.className;
-				if (clase.contains("policy-option")) {					
+				if (clase.search("policy-option") != -1) {					
 					$( "<p></p>" ).html( ui.draggable.text() + "<input type='button' onclick='deleteItem(this)' value='Delete'/>" ).appendTo( this );
 				}
 		}
@@ -35,16 +35,16 @@ $(document).ready( function() {
 function showHide(id) {
 	$("#"+id).toggle("blind");
 	$("#policy-menu").toggle("drop");
+	$("html, body").animate({
+		scrollTop: $("#"+id).offset().top/2
+	}, 1000);
 }
 
 function deleteItem(item) {
-	$(function() {
 		$( "#delete-printer-confirm" ).dialog({
-			resizable: false,
-			height:50,
 			modal: true,
 			buttons: {
-				"Delete": function() {
+				"Accept": function() {
 					$(item).parent().remove();
 					$( this ).dialog( "close" );
 				},
@@ -53,6 +53,4 @@ function deleteItem(item) {
 				}
 			}
 		});
-	});
-
 }
