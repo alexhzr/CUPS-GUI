@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.cups4j.CupsClient;
 import org.cups4j.CupsPrinter;
+
 import servlets.MainServlet;
 
 /**
@@ -44,10 +45,11 @@ public class ServerController {
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException, LDAPException {
         
         //Gets 'username', creates httpsession, redirect to jsp page. LDAP authentication is not enabled yet
-        HttpSession session = LDAPConn.getInstance().loadGroups(request);
+        //HttpSession session = LDAPConn.getInstance().loadGroups(request);
+        HttpSession session = request.getSession();
         session.setAttribute("user", request.getParameter("username"));
         
-        RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("admin.html");
         rd.forward(request, response);
         
         /*
@@ -117,7 +119,7 @@ public class ServerController {
         return true;
     }
     
-        public void listPrinter(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void listPrinter(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
         // Cambiar la ip por la del servidor de cups
         CupsClient client = new CupsClient("192.168.1.230", 631);
