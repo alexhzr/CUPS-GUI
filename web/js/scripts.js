@@ -38,7 +38,6 @@ function showHide(id) {
 }
 
 function deleteItem(item) {
-	$(function() {
 		$( "#delete-printer-confirm" ).dialog({
 			resizable: false,
 			height:50,
@@ -53,6 +52,4 @@ function deleteItem(item) {
 				}
 			}
 		});
-	});
-
 }
