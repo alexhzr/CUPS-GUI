@@ -4,27 +4,48 @@
 		<meta charset="utf-8">
 		<title>CUPS Administration Panel</title>
 		<link rel="stylesheet" href="css/jquery-ui.min.css" />
-		<link rel="stylesheet" href="css/jquery-ui.structure.min.css" />
-		<link rel="stylesheet" href="css/jquery-ui.theme.min.css" />
 		<link rel="stylesheet" href="css/styles.css" />
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/scripts.js"></script>
 	</head>
 	<body>
-		<div id="policy-menu">menu politicas
-			<ul>
-				<li>Opcion 1</li>
-				<li>Opcion 2</li>
-				<li>Opcion 3</li>
-				<li>Opcion 4</li>
-			</ul>
+		<div id="header">
+			<h1>Hi, admin</h1>
+			<span id="exitButton">Log out</span>
+		</div>
+		<div id="delete-printer-confirm" title="Do you want to delete?">
+			<p>
+				<span class="ui-icon ui-icon-alert"></span>
+			</p>
+		</div>
+		<div id="policy-menu">
+		<h3>Politicas de impresión</h3>
+			<p class="policy-option">Opcion 1</p>
+			<p class="policy-option">Opcion 2</p>
+			<p class="policy-option">Opcion 3</p>
+			<p class="policy-option">Opcion 4</p>
 		</div>
 		<div id="wrapper">
-			<div class="printer-menu">impresora1
-				<div class="policy-statements"><ul><li>Introducir politicas</li></ul></div>
-			</div>
-			<div class="printer-menu">impresora2
-				<div class="policy-statements"><ul><li>Introducir politicas</li></ul></div>
+			<span class="add-printer-button">Add printer</span>
+			<div class="printer-menu" id="4321">
+				<div class="printer-info">
+					<h3>impresora1</h3>
+					<div class="queue">Queue: 17</div>
+					<div class="status">Status: On</div>
+				</div>
+				<button class="show-hide-button" onclick="showHide('1234')">Show/Hide policies</button>
+				<span class="delete-printer-button" onclick="deleteItem(this)">Delete</span>
+				<div class="policy-statements" id="1234" >
+					<ul>
+						<li><a href="#1234-admin">Admin</a></li>
+						<li><a href="#1234-design">Design</a></li>
+						<li><a href="#1234-sales">Sales</a></li>
+					</ul>
+					<div id="1234-admin"></div>
+					<div id="1234-design"></div>
+					<div id="1234-sales"></div>					
+				</div>
 			</div>
 		</div>
 	</body>

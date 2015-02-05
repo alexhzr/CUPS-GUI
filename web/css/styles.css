@@ -1,36 +1,97 @@
-#wrapper {
-	margin: 100px auto;
-	width: 800px;
+/*CSS para el menú del contenedor*/
+body {
+	margin: 0;
+	font-family: Verdana, Geneva, sans-serif;
 }
 
+#header {
+	height: 50px;
+	background-color: lightblue;
+	padding: 0 5px 0 5px;
+}
+
+#header h1 {
+	height:100%;
+	margin:0;
+	display: inline;
+}
+
+#exitButton {
+	float: right;
+	margin-top: 5px;
+}
+
+#wrapper {
+	margin: 100px auto;
+	width: 60%;
+	/*background-color:#BDE6BF; /* Color de Fondo */
+}
+.add-printer-button {
+	margin-bottom: 1em;
+}
+
+.delete-printer-button {
+	float: right;
+}
+
+/**/
+#delete-printer-confirm {
+	float:left; 
+	display:none;
+	width: 90em;
+}
 .printer-menu {
-	background-color: #090;
+	background-color: lightblue;
 	position: relative;
 	margin: 0 auto;
-	border: 1px solid #000;
+	border: 1px solid #99c;
 	width: 100%;
-	height: 150px;
+	padding: 1em;
+}
+
+.printer-info {
+	width: 100%;
+	margin-bottom: 1em
+}
+
+.printer-info h3, .queue {
+	display: inline;
+}
+
+.status {
+	float: right;
+}
+
+.show-hide-button {
+	font-size: 0.9;
 }
 
 .policy-statements {
-	position: inherit;
-	background-color: #cfc;
-	border: 1px solid #999;
-	margin: 30px auto;
-	width: 600px;
-	height: 80px;
+	position: relative;
+	border: 1px solid #9cc;
+	margin: 1em 0 0 0;
+	width: 99%;
+	min-height: 10em;
+	display: none;
+	font-size: smaller;
 }
 
 .printer-menu, .policy-statements { 
-	border-radius: 15px;
-	padding: 10px;
+	border-radius: 5px;
+}
+
+.policy-statements p, #policy-menu p {
+	border-bottom: 1px dashed #090;
 }
 
 #policy-menu {
 	z-index: 2;
-	border: 1px solid;
-	margin-top: 100px;
+	margin-top: 5em;
+	border: 5px ridge #4297D7;
+	background-color: #FFF;
 	position: fixed;
-	height: 20%;
-	width: 100px;
+	width: 13em;
+	padding: 0 1em 1em 1em;
+	display: none;
+	border-radius: 10px;
 }
