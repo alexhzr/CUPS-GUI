@@ -9,7 +9,7 @@ $(document).ready( function() {
 	$(".policy-statements div").droppable({
 			drop: function( event, ui ) {
 				var clase = ui.draggable.context.className;
-				if (clase.contains("policy-option")) {					
+				if (clase.search("policy-option") != -1) {					
 					$( "<p></p>" ).html( ui.draggable.text() + "<input type='button' onclick='deleteItem(this)' value='Delete'/>" ).appendTo( this );
 				}
 		}
@@ -42,11 +42,9 @@ function showHide(id) {
 
 function deleteItem(item) {
 		$( "#delete-printer-confirm" ).dialog({
-			resizable: false,
-			height:50,
 			modal: true,
 			buttons: {
-				"Delete": function() {
+				"Accept": function() {
 					$(item).parent().remove();
 					$( this ).dialog( "close" );
 				},
