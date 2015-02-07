@@ -44,10 +44,8 @@ public class ServerController {
     
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException, LDAPException {
         
-        //Gets 'username', creates httpsession, redirect to jsp page. LDAP authentication is not enabled yet
-        //HttpSession session = LDAPConn.getInstance().loadGroups(request);
-        HttpSession session = request.getSession();
-        session.setAttribute("user", request.getParameter("username"));
+        
+        HttpSession session = LDAPConn.getInstance().loadGroups(request);
         
         RequestDispatcher rd = request.getRequestDispatcher("admin.html");
         rd.forward(request, response);
