@@ -6,10 +6,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    if (session.getAttribute("user") == null) 
+    if (session.getAttribute("username") == null) 
         response.sendRedirect("index.html");
     else {
-        out.println("Hello, "+session.getAttribute("user"));
+        out.println("Hello, "+session.getAttribute("username"));
     }
     
 %>

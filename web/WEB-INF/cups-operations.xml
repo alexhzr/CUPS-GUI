@@ -1,6 +1,6 @@
 <root>
     <operation id="kkjdfuih" class="Login" groups="*"></operation>
     <operation id="lqo381hx" class="Logout" groups="*"></operation>
-    <operation id="mkxjhdy3" class="Sample" groups="10000"></operation>
+    <operation id="mkxjhdy3" class="Sample" groups="986"></operation>
     <operation id="hjfksdf7" class="ListPrinter" groups="*"></operation>
 </root>

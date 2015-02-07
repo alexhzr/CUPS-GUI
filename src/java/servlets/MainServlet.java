@@ -9,6 +9,8 @@ package servlets;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
 import controllers.ItemOperation;
+import controllers.LDAPConn;
+import controllers.ServerController;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -67,18 +69,22 @@ public class MainServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String codop = request.getParameter("op");
-        if (codop != null) {
-            if (hashContainer.containsKey(codop)) {
-                request.setAttribute("operationGroups", hashContainer.get(codop).getGroups());
-                Class c = Class.forName("operations."+hashContainer.get(codop).getClassName());
-                Operation operation = (Operation) c.newInstance();
-                operation.doIt(request, response);
+        if(codop != null) {
+            if(hashContainer.containsKey(codop)) {
+                if(ServerController.getInstance().userAllowed(hashContainer.get(codop).getGroups(), request)) {
+                    Class c = Class.forName("operations."+hashContainer.get(codop).getClassName());
+                    Operation operation = (Operation) c.newInstance();
+                    operation.doIt(request, response);
+                } else {
+                    RequestDispatcher rd = request.getRequestDispatcher("notallowed.html");
+                    rd.forward(request, response);
+                }
             } else {
-                RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                RequestDispatcher rd = request.getRequestDispatcher("notop.html");
                 rd.forward(request, response);
             }
         } else {
-            RequestDispatcher rd = request.getRequestDispatcher("index.html");
+            RequestDispatcher rd = request.getRequestDispatcher("nullop.html");
             rd.forward(request, response);
         } 
     }

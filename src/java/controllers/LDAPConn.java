@@ -50,7 +50,6 @@ public class LDAPConn {
     public HttpSession loadGroups(HttpServletRequest request) throws LDAPSearchException {
         HttpSession session = request.getSession();
         session.setAttribute("username", request.getParameter("username"));
-        //session.setAttribute("username", request.getAttribute("username"));
         String baseDN = "ou=groups, ou=printing, dc=iliberis, dc=com";
         Filter filter = Filter.createPresenceFilter("cn");
         SearchResult searchResult = connection.search(baseDN, SearchScope.SUB, filter, "memberUid", "gidNumber");

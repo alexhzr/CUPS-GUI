@@ -43,35 +43,18 @@ public class ServerController {
     }
     
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException, LDAPException {
-        
-        
-        HttpSession session = LDAPConn.getInstance().loadGroups(request);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("admin.html");
-        rd.forward(request, response);
-        
-        /*
-        //LDAPConnection object 'c' is created
-        LDAPConnection c;
-        
         try {
-            
-            //Gets username and password from index.html login form
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             
-            //Try connecting with those credentials
-            c = new LDAPConnection("192.168.1.10", 389, "cn="+username+",ou=printing,dc=iliberis,dc=com", (String) password);
+            LDAPConnection c = new LDAPConnection("192.168.1.10", 389, "cn="+username+",ou=printing,dc=iliberis,dc=com", (String) password);
             
-            //If connection goes OK, a HTTPSession is created with the username stored into 'username' session attribute
             if (c.isConnected()) {
-                HttpSession session = request.getSession(true);
-                session.setAttribute("user", username);
+                HttpSession session = LDAPConn.getInstance().loadGroups(request);      
                 RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
                 rd.forward(request, response);
             }
             
-            //Else, it throws a LDAPException; then, the user is redirected to index.html
         } catch (LDAPException ex) {
             // LDAPException(resultCode=49): Credenciales invalidas
             // LDAPException(resultCode=89): DN o pass vacios
@@ -80,7 +63,7 @@ public class ServerController {
             RequestDispatcher rd = request.getRequestDispatcher("index.html");
             rd.forward(request, response);
         }
-        */
+        
     }
     
     public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException {
@@ -113,13 +96,25 @@ public class ServerController {
         } 
     }
     
-    private boolean checkUserPermissions() {
-        return true;
+    public boolean userAllowed(List<String> opGroups, HttpServletRequest request) {
+        Boolean userAllowed = false;
+        HttpSession session = request.getSession(false);
+        if(opGroups.contains("*"))
+            userAllowed = true;
+        if(session != null) {
+            for(String group : (ArrayList<String>) session.getAttribute("groups")) {
+                if(opGroups.contains(group)) {
+                    userAllowed = true;
+                    break;
+                }
+            }
+        }
+        
+        return userAllowed;
     }
     
     public void listPrinter(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
-        // Cambiar la ip por la del servidor de cups
         CupsClient client = new CupsClient("192.168.1.230", 631);
         List<CupsPrinter> printer = client.getPrinters();
         for(int i=0; i<printer.size(); i++) {
