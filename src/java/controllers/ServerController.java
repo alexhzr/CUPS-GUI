@@ -75,12 +75,8 @@ public class ServerController {
     
     public void sample(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession(false);
-            ArrayList<String> userGroups = (ArrayList<String>) session.getAttribute("groups");
-            for (String group : userGroups) {
-                out.write(group);
-            }
-            out.println();
+            out.write("sample operation");
+
         } 
     }
     
@@ -122,20 +118,4 @@ public class ServerController {
             out.write(name);
         }
     }
-    /*
-    private boolean checkUserPermissions(HttpServletRequest request, HttpServletResponse response) throws LDAPException {
-        if (request.getSession(false) == null) {
-            if (items.contains("*"))
-                return true;
-            else return false;
-        } else {
-            LDAPConnection c = LDAPConn.getInstance().getConnection();
-            
-            request.getSession(false).getAttribute("username");
-            if (items.contains("267") || (items.contains("*"))) 
-                return true;
-            else return false;
-        }
-    }
-    */    
 }
