@@ -26,15 +26,47 @@ body {
 	width: 60%;
 	/*background-color:#BDE6BF; /* Color de Fondo */
 }
-.add-printer-button {
+
+#add-printer-button {
 	margin-bottom: 1em;
+}
+
+#new-printer-dialog {
+	background-color: lightblue;
+	position: relative;
+	margin: 0 auto 1em auto;
+	border: 1px solid #99c;
+	width: 50%;
+	padding: 1em;
+	text-align: center;
+}
+
+#new-printer-dialog div {
+	margin-bottom: 1em;
+}
+
+#new-printer-dialog h4 {
+	margin: 0;
+}
+
+#error-alert {
+	z-index: 1;
+	position: fixed;
+	border-radius: 3px;
+	margin: 0.6em 35%;
+	padding: 0.2em;
+	text-align: center;
+}
+
+#error-alert-icon {
+	margin: 0.2em;
+	float: left;
 }
 
 .delete-printer-button {
 	float: right;
 }
 
-/**/
 #delete-printer-confirm {
 	float:left; 
 	display:none;
@@ -82,7 +114,7 @@ body {
 	font-size: smaller;
 }
 
-.printer-menu, .policy-statements { 
+.printer-menu, .policy-statements, #new-printer-dialog { 
 	border-radius: 5px;
 }
 
