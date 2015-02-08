@@ -101,7 +101,7 @@ public class ServerController {
         HttpSession session = request.getSession(false);
         if(opGroups.contains("*"))
             userAllowed = true;
-        if(session != null) {
+        else if(session != null) {
             for(String group : (ArrayList<String>) session.getAttribute("groups")) {
                 if(opGroups.contains(group)) {
                     userAllowed = true;
