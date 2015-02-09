@@ -8,6 +8,7 @@ package controllers;
 
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -19,6 +20,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.cups4j.CupsClient;
 import org.cups4j.CupsPrinter;
 
@@ -107,6 +112,57 @@ public class ServerController {
         }
         
         return userAllowed;
+    }
+    
+    public void uploadFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String UPLOAD_DIRECTORY = "C:\\Users\\Álex\\Desktop\\";
+        int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
+        int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
+        int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
+        
+        if (!ServletFileUpload.isMultipartContent(request)) {
+            PrintWriter writer = response.getWriter();
+            writer.println("Error: Form must has enctype=multipart/form-data.");
+            writer.flush();
+        }
+        
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        factory.setSizeThreshold(MEMORY_THRESHOLD);
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        upload.setFileSizeMax(MAX_FILE_SIZE);
+        upload.setSizeMax(MAX_REQUEST_SIZE);
+        File uploadDir = new File(UPLOAD_DIRECTORY);
+        if (!uploadDir.exists()) 
+            uploadDir.mkdir();
+        
+        try {
+            // parses the request's content to extract file data
+            @SuppressWarnings("unchecked")
+            List<FileItem> formItems = upload.parseRequest((RequestContext) request);
+ 
+            if (formItems != null && formItems.size() > 0) {
+                // iterates over form's fields
+                for (FileItem item : formItems) {
+                    // processes only fields that are not form fields
+                    if (!item.isFormField()) {
+                        String fileName = new File(item.getName()).getName();
+                        String filePath = UPLOAD_DIRECTORY + File.separator + fileName;
+                        File storeFile = new File(filePath);
+                        item.write(storeFile);
+                        request.setAttribute("message",
+                            "Upload has been done successfully!");
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            request.setAttribute("message",
+                    "There was an error: " + ex.getMessage());
+        }
+        // redirects client to message page
+        
+        RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
+            rd.forward(request, response);
+        
     }
     
     public void listPrinter(HttpServletRequest request, HttpServletResponse response) throws Exception {
