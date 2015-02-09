@@ -1,4 +1,8 @@
 $(document).ready( function() {
+	$("#new-printer-dialog").hide();
+	
+	$("#error-alert").hide();
+
 	//Draggable y Droppable
 	$( "#policy-menu" ).draggable();
 	
@@ -19,9 +23,39 @@ $(document).ready( function() {
 		icons: { primary: "ui-icon-power", secondary: null }
 	});
 	
-	$(".add-printer-button").button({
+	$("#add-printer-button").button({
 		icons: { primary: "ui-icon-plusthick", secondary: null }
+	}).click(function() {
+		$("#new-printer-dialog").show("blind");
 	});
+	
+	$("input[name='new-printer-submit']").button().click(function() {
+		var data = new FormData();
+			jQuery.each(jQuery("input[name='new-priner-driver-file']")[0].files, function(i, file) {
+			data.append('file-'+i, file);
+		});
+
+		jQuery.ajax({
+			url: 'MainServlet',
+			data: data,
+			cache: false,
+			contentType: false,
+			processData: false,
+			type: 'POST',
+			success: function(data){
+			    alert(data);
+			},
+			error: function() {
+			    $("#error-alert").show();
+				 $("#error-alert").fadeOut(2000);
+			}
+		});
+	});
+	
+	$("input[name='new-printer-cancel']").button().click(function() {
+		$("#new-printer-dialog").hide("blind");
+	});
+	
 	$(".delete-printer-button").button({
 		icons: { primary: "ui-icon-trash", secondary: null }
 	});
