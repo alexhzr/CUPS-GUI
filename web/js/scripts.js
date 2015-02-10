@@ -31,7 +31,7 @@ $(document).ready( function() {
 	
 	$("input[name='new-printer-submit']").button().click(function() {
 		var data = new FormData();
-			jQuery.each(jQuery("input[name='new-priner-driver-file']")[0].files, function(i, file) {
+			jQuery.each(jQuery("input[name='new-printer-driver-file']")[0].files, function(i, file) {
 			data.append('file-'+i, file);
 		});
 
@@ -47,7 +47,8 @@ $(document).ready( function() {
 			},
 			error: function() {
 			    $("#error-alert").show();
-				 $("#error-alert").fadeOut(2000);
+                            $("#error-alert").fadeOut(2000);
+                            $("#header h1").html(data.toString());
 			}
 		});
 	});

@@ -56,7 +56,7 @@ public class ServerController {
             
             if (c.isConnected()) {
                 HttpSession session = LDAPConn.getInstance().loadGroups(request);      
-                RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("admin.html");
                 rd.forward(request, response);
             }
             
@@ -115,16 +115,10 @@ public class ServerController {
     }
     
     public void uploadFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String UPLOAD_DIRECTORY = "C:\\Users\\Álex\\Desktop\\";
+        String UPLOAD_DIRECTORY = "C:\\";
         int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
         int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
         int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
-        
-        if (!ServletFileUpload.isMultipartContent(request)) {
-            PrintWriter writer = response.getWriter();
-            writer.println("Error: Form must has enctype=multipart/form-data.");
-            writer.flush();
-        }
         
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(MEMORY_THRESHOLD);
@@ -138,7 +132,7 @@ public class ServerController {
         try {
             // parses the request's content to extract file data
             @SuppressWarnings("unchecked")
-            List<FileItem> formItems = upload.parseRequest((RequestContext) request);
+            List<FileItem> formItems = upload.parseRequest(request);
  
             if (formItems != null && formItems.size() > 0) {
                 // iterates over form's fields
@@ -149,19 +143,17 @@ public class ServerController {
                         String filePath = UPLOAD_DIRECTORY + File.separator + fileName;
                         File storeFile = new File(filePath);
                         item.write(storeFile);
-                        request.setAttribute("message",
-                            "Upload has been done successfully!");
+                        PrintWriter out = response.getWriter();
+                        out.write("uplad success");
+                        out.close();
                     }
                 }
             }
         } catch (Exception ex) {
-            request.setAttribute("message",
-                    "There was an error: " + ex.getMessage());
+            PrintWriter out = response.getWriter();
+            out.write("There was an error: " + ex.getMessage().toString());
+            out.close();
         }
-        // redirects client to message page
-        
-        RequestDispatcher rd = request.getRequestDispatcher("success.jsp");
-            rd.forward(request, response);
         
     }
     
