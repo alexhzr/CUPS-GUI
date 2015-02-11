@@ -10,6 +10,7 @@ import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +18,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import javax.servlet.http.Part;
 import org.cups4j.CupsClient;
 import org.cups4j.CupsPrinter;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 
 import servlets.MainServlet;
 
@@ -115,7 +118,7 @@ public class ServerController {
     }
     
     public void uploadFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String UPLOAD_DIRECTORY = "C:\\";
+        String UPLOAD_DIRECTORY = "C:\\Users\\Jaime\\Documents";
         int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
         int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
         int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
@@ -125,6 +128,7 @@ public class ServerController {
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setFileSizeMax(MAX_FILE_SIZE);
         upload.setSizeMax(MAX_REQUEST_SIZE);
+        
         File uploadDir = new File(UPLOAD_DIRECTORY);
         if (!uploadDir.exists()) 
             uploadDir.mkdir();
@@ -132,8 +136,7 @@ public class ServerController {
         try {
             // parses the request's content to extract file data
             @SuppressWarnings("unchecked")
-            List<FileItem> formItems = upload.parseRequest(request);
- 
+           List<FileItem> formItems = upload.parseRequest(request);
             if (formItems != null && formItems.size() > 0) {
                 // iterates over form's fields
                 for (FileItem item : formItems) {
