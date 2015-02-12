@@ -125,6 +125,6 @@ public class ServerController {
         String command = request.getParameter("command");
         String commandValue = request.getParameter("commandValue");
         Runtime runtime = Runtime.getRuntime();
-        Process process = runtime.exec("/opt/addPrinter "+printerName+" "+group+" "+command+" "+commandValue);
+        Process process = runtime.exec("/opt/script/permisos "+printerName+" "+group+" "+command+" "+commandValue);
     }
 }
