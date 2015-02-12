@@ -3,4 +3,5 @@
     <operation id="lqo381hx" class="Logout" groups="*"></operation>
     <operation id="mkxjhdy3" class="Sample" groups="986"></operation>
     <operation id="hjfksdf7" class="ListPrinter" groups="*"></operation>
+    <operation id="qwopiusd" class="AddPolicy" groups="10000"></operation>
 </root>
