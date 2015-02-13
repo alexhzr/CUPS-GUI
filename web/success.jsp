@@ -36,5 +36,10 @@
             <input type="file" />
             <input type="submit" value="subir"/>
         </form>
+        
+        <form method="POST" action="MainServlet">
+            <input type="hidden" name="op" value="ooo8821s"/>
+            <input type="submit" name="boton" value="Descargar"/>
+        </form>
     </body>
 </html>

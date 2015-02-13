@@ -9,6 +9,7 @@ package controllers;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -118,6 +119,7 @@ public class ServerController {
     }
     
     public void uploadFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+       
         String UPLOAD_DIRECTORY = "C:\\Users\\Jaime\\Documents";
         int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
         int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
@@ -168,5 +170,26 @@ public class ServerController {
             String name = printer.get(i).getName();
             out.write(name);
         }
+    }
+    public void Download(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException {
+                
+        response.setContentType("text/html");  
+        PrintWriter out = response.getWriter();
+        //indicar el archivo
+        String filename = "consultas.txt";   
+        //la ruta donde esta el archivo
+        String filepath = "C:\\Users\\Jaime\\Desktop\\";   
+        response.setContentType("APPLICATION/OCTET-STREAM");   
+        response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");   
+
+        FileInputStream fileInputStream = new FileInputStream(filepath + filename);  
+
+        int i;   
+        while ((i=fileInputStream.read()) != -1) {  
+        out.write(i);   
+        }   
+        fileInputStream.close();   
+        out.close();   
+          	
     }
 }
