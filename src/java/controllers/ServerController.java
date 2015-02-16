@@ -120,11 +120,7 @@ public class ServerController {
     }
     
     public void addPolicy(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String printerName = request.getParameter("printerName");
-        String group = request.getParameter("group");
-        String command = request.getParameter("command");
-        String commandValue = request.getParameter("commandValue");
         Runtime runtime = Runtime.getRuntime();
-        Process process = runtime.exec("/opt/script/permisos "+printerName+" "+group+" "+command+" "+commandValue);
+        Process process = runtime.exec("/opt/script/permisos "+request.getParameter("printerName")+" "+request.getParameter("group")+" "+request.getParameter("command")+" "+request.getParameter("commandValue"));
     }
 }
