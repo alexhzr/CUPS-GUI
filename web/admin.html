@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+<<<<<<< HEAD
     <head>
         <meta charset="utf-8">
         <title>CUPS Administration Panel</title>
@@ -56,4 +57,165 @@
             </div>
         </div>
     </body>
+=======
+	<head>
+		<meta charset="utf-8">
+		<title>CUPS Administration Panel</title>
+		<link rel="stylesheet" href="css/jquery-ui.min.css" />
+		<link rel="stylesheet" href="css/styles.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/scripts.js"></script>
+	</head>
+	<body>
+		<div id="header">
+			<h1>Hi, admin</h1>
+			<span id="exitButton">Log out</span>
+		</div>
+		<div id="delete-printer-confirm" title="Are you sure?">
+			<p><span id="delete-printer-icon" class="ui-icon ui-icon-alert"></span>Deleted data will not be able to be recovered.</p>
+		</div>
+		<div id="error-alert" class="ui-state-error">
+			<div><span id="error-alert-icon" class="ui-icon ui-icon-alert"></span>An error ocurred while sending information.</div>
+		</div>
+		<div id="policy-menu">
+		<h3>Politicas de impresión</h3>
+			<p class="policy-option">Opcion 1</p>
+			<p class="policy-option">Opcion 2</p>
+			<p class="policy-option">Opcion 3</p>
+			<p class="policy-option">Opcion 4</p>
+		</div>
+		<div id="wrapper">
+
+			<span id="add-printer-button">Add printer</span>
+			<div id="new-printer-dialog">
+				<div><h4>Printer name:</h4><input type="text" name="new-printer-name" /></div>
+				<div><h4>Drivers file:</h4><input type="file" name="new-printer-driver-file" /></div>
+				<input type="button" name="new-printer-submit" value="Save" />
+				<input type="button" name="new-printer-cancel" value="Cancel" />
+			</div>
+                        
+			
+			<div class="printer-menu" id="1111">
+				<div class="printer-info">
+					<h3>impresora1</h3>
+					<div class="queue">Queue: 17</div>
+					<div class="status">Status: On</div>
+				</div>
+				<button class="show-hide-button" onclick="showHide('aaaa')">Show/Hide policies</button>
+				<span class="delete-printer-button" onclick="deleteItem(this)">Delete</span>
+				<div class="policy-statements" id="aaaa" >
+					<ul>
+						<li><a href="#aaaa-admin">Admin</a></li>
+						<li><a href="#aaaa-design">Design</a></li>
+						<li><a href="#aaaa-sales">Sales</a></li>
+					</ul>
+					<div id="aaaa-admin"></div>
+					<div id="aaaa-design"></div>
+					<div id="aaaa-sales"></div>					
+				</div>
+			</div>
+			
+			<div class="printer-menu" id="2222">
+				<div class="printer-info">
+					<h3>impresora2</h3>
+					<div class="queue">Queue: 17</div>
+					<div class="status">Status: On</div>
+				</div>
+				<button class="show-hide-button" onclick="showHide('bbbb')">Show/Hide policies</button>
+				<span class="delete-printer-button" onclick="deleteItem(this)">Delete</span>
+				<div class="policy-statements" id="bbbb" >
+					<ul>
+						<li><a href="#bbbb-admin">Admin</a></li>
+						<li><a href="#bbbb-design">Design</a></li>
+						<li><a href="#bbbb-sales">Sales</a></li>
+					</ul>
+					<div id="bbbb-admin"></div>
+					<div id="bbbb-design"></div>
+					<div id="bbbb-sales"></div>					
+				</div>
+			</div>
+			
+			<div class="printer-menu" id="3333">
+				<div class="printer-info">
+					<h3>impresora3</h3>
+					<div class="queue">Queue: 17</div>
+					<div class="status">Status: On</div>
+				</div>
+				<button class="show-hide-button" onclick="showHide('cccc')">Show/Hide policies</button>
+				<span class="delete-printer-button" onclick="deleteItem(this)">Delete</span>
+				<div class="policy-statements" id="cccc" >
+					<ul>
+						<li><a href="#cccc-admin">Admin</a></li>
+						<li><a href="#cccc-design">Design</a></li>
+						<li><a href="#cccc-sales">Sales</a></li>
+					</ul>
+					<div id="cccc-admin"></div>
+					<div id="cccc-design"></div>
+					<div id="cccc-sales"></div>					
+				</div>
+			</div>
+			
+			<div class="printer-menu" id="4444">
+				<div class="printer-info">
+					<h3>impresora4</h3>
+					<div class="queue">Queue: 17</div>
+					<div class="status">Status: On</div>
+				</div>
+				<button class="show-hide-button" onclick="showHide('dddd')">Show/Hide policies</button>
+				<span class="delete-printer-button" onclick="deleteItem(this)">Delete</span>
+				<div class="policy-statements" id="dddd" >
+					<ul>
+						<li><a href="#dddd-admin">Admin</a></li>
+						<li><a href="#dddd-design">Design</a></li>
+						<li><a href="#dddd-sales">Sales</a></li>
+					</ul>
+					<div id="dddd-admin"></div>
+					<div id="dddd-design"></div>
+					<div id="dddd-sales"></div>					
+				</div>
+			</div>
+			
+			<div class="printer-menu" id="5555">
+				<div class="printer-info">
+					<h3>impresora5</h3>
+					<div class="queue">Queue: 17</div>
+					<div class="status">Status: On</div>
+				</div>
+				<button class="show-hide-button" onclick="showHide('eeee')">Show/Hide policies</button>
+				<span class="delete-printer-button" onclick="deleteItem(this)">Delete</span>
+				<div class="policy-statements" id="eeee" >
+					<ul>
+						<li><a href="#eeee-admin">Admin</a></li>
+						<li><a href="#eeee-design">Design</a></li>
+						<li><a href="#eeee-sales">Sales</a></li>
+					</ul>
+					<div id="eeee-admin"></div>
+					<div id="eeee-design"></div>
+					<div id="eeee-sales"></div>					
+				</div>
+			</div>
+			
+			<div class="printer-menu" id="6666">
+				<div class="printer-info">
+					<h3>impresora6</h3>
+					<div class="queue">Queue: 17</div>
+					<div class="status">Status: On</div>
+				</div>
+				<button class="show-hide-button" onclick="showHide('ffff')">Show/Hide policies</button>
+				<span class="delete-printer-button" onclick="deleteItem(this)">Delete</span>
+				<div class="policy-statements" id="ffff" >
+					<ul>
+						<li><a href="#ffff-admin">Admin</a></li>
+						<li><a href="#ffff-design">Design</a></li>
+						<li><a href="#ffff-sales">Sales</a></li>
+					</ul>
+					<div id="ffff-admin"></div>
+					<div id="ffff-design"></div>
+					<div id="ffff-sales"></div>					
+				</div>
+			</div>
+		</div>
+	</body>
+>>>>>>> origin/upload
 </html>

@@ -30,5 +30,16 @@
             <input type="hidden" name="op" value="mkxjhdy3"/>
             <input type="submit" value="sample"/>
         </form>
+        
+        <form method="POST" action="MainServlet" enctype="multipart/form-data">
+            <input type="hidden" name="op" value="kos8821s"/>
+            <input type="file" />
+            <input type="submit" value="subir"/>
+        </form>
+        
+        <form method="POST" action="MainServlet">
+            <input type="hidden" name="op" value="ooo8821s"/>
+            <input type="submit" name="boton" value="Descargar"/>
+        </form>
     </body>
 </html>
