@@ -122,5 +122,6 @@ public class ServerController {
     public void addPolicy(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Runtime runtime = Runtime.getRuntime();
         Process process = runtime.exec("/opt/script/permisos "+request.getParameter("printerName")+" "+request.getParameter("group")+" "+request.getParameter("command")+" "+request.getParameter("commandValue"));
+
     }
 }
