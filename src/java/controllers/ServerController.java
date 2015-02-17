@@ -120,7 +120,7 @@ public class ServerController {
     
     public void uploadFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
        
-        String UPLOAD_DIRECTORY = "C:\\Users\\Jaime\\Documents";
+        String UPLOAD_DIRECTORY = "/opt/ppd";
         int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
         int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
         int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
@@ -183,7 +183,7 @@ public class ServerController {
         //indicar el archivo
         String filename = "consultas.txt";   
         //la ruta donde esta el archivo dentro de cups
-        String filepath = "/opt/ppd";   
+        String filepath = "/opt";   
         response.setContentType("APPLICATION/OCTET-STREAM");   
         response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");   
         FileInputStream fileInputStream = new FileInputStream(filepath + filename);  
