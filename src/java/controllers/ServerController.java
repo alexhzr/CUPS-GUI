@@ -6,6 +6,7 @@
 package controllers;
 
 
+import beans.PrinterBean;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
 import java.io.File;
@@ -29,7 +30,7 @@ import org.cups4j.CupsPrinter;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
+import org.cups4j.WhichJobsEnum;
 
 import servlets.MainServlet;
 
@@ -53,14 +54,16 @@ public class ServerController {
     
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException, LDAPException {
         try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            
-            LDAPConnection c = new LDAPConnection("192.168.1.10", 389, "cn="+username+",ou=printing,dc=iliberis,dc=com", (String) password);
+            LDAPConnection c = new LDAPConnection("192.168.1.10", 389, "cn="+request.getParameter("username")+",ou=printing,dc=iliberis,dc=com", (String) request.getParameter("password"));
             
             if (c.isConnected()) {
                 HttpSession session = LDAPConn.getInstance().loadGroups(request);      
-                RequestDispatcher rd = request.getRequestDispatcher("admin.html");
+                ServerController.getInstance().listPrinter(request, response);
+                RequestDispatcher rd;
+                List<String> groups = (List<String>) session.getAttribute("groups");
+                if(groups.contains("10000"))
+                    rd = request.getRequestDispatcher("admin.jsp");
+                else rd = request.getRequestDispatcher("success.jsp");
                 rd.forward(request, response);
             }
             
@@ -71,6 +74,8 @@ public class ServerController {
             Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
             RequestDispatcher rd = request.getRequestDispatcher("index.html");
             rd.forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -162,13 +167,55 @@ public class ServerController {
         
     }
     
-    public void listPrinter(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        PrintWriter out = response.getWriter();
-        CupsClient client = new CupsClient("192.168.1.230", 631);
-        List<CupsPrinter> printer = client.getPrinters();
-        for(int i=0; i<printer.size(); i++) {
-            String name = printer.get(i).getName();
-            out.write(name);
+    public void listPrinter(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            CupsClient client = new CupsClient("192.168.1.230", 631);
+            PrinterBean pb = new PrinterBean();
+            for(CupsPrinter printer : client.getPrinters()) {
+                String pName = printer.getName();
+                pb.setPrinterList("<div class='printer-menu' id='printer-'"+pName+"'>"+
+                    "<div class='printer-info'>"+
+                            "<h3>"+pName+"</h3>"+
+                            "<div class='queue'>Queue: "+printer.getJobs(WhichJobsEnum.NOT_COMPLETED, null, true).size()+"</div>"+
+                            "<div class='status'>Status: On</div>"+
+                    "</div>"+
+                    "<button class='show-hide-button' onclick=\"showHide('permissions-"+pName+"')\">Show/Hide policies</button>"+
+                    "<span class='delete-printer-button' onclick='deleteItem(this)'>Delete</span>"+
+                    "<div class='policy-statements' id='permissions-"+pName+"' >"+
+                            "<ul>"+
+                                    "<li><a href='#permissions-"+pName+"-admin'>Admin</a></li>"+
+                                    "<li><a href='#permissions-"+pName+"design'>Design</a></li>"+
+                                    "<li><a href='#permissions-"+pName+"sales'>Sales</a></li>"+
+                            "</ul>"+
+                            "<div id='permissions-"+pName+"-admin'></div>"+
+                            "<div id='permissions-"+pName+"design'></div>"+
+                            "<div id='permissions-"+pName+"sales'></div>"+					
+                    "</div>"+
+            "</div>");
+            }
+                pb.setPrinterList("<div class='printer-menu' id='printer-1'>"+
+                    "<div class='printer-info'>"+
+                            "<h3>imp1</h3>"+
+                            "<div class='queue'>Queue: 1</div>"+
+                            "<div class='status'>Status: On</div>"+
+                    "</div>"+
+                    "<button class='show-hide-button' onclick=\"showHide('permissions-1')\">Show/Hide policies</button>"+
+                    "<span class='delete-printer-button' onclick='deleteItem(this)'>Delete</span>"+
+                    "<div class='policy-statements' id='permissions-1' >"+
+                            "<ul>"+
+                                    "<li><a href='#permissions-1-admin'>Admin</a></li>"+
+                                    "<li><a href='#permissions-1-design'>Design</a></li>"+
+                                    "<li><a href='#permissions-1-sales'>Sales</a></li>"+
+                            "</ul>"+
+                            "<div id='permissions-1-admin'></div>"+
+                            "<div id='permissions-1-design'></div>"+
+                            "<div id='permissions-1-sales'></div>"+					
+                    "</div>"+
+            "</div>");
+
+            request.setAttribute("printerList", pb);
+        } catch (Exception ex) {
+            Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
