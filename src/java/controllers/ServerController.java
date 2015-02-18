@@ -153,7 +153,9 @@ public class ServerController {
                         String filePath = UPLOAD_DIRECTORY + File.separator + fileName;
                         File storeFile = new File(filePath);
                         item.write(storeFile);
-                        PrintWriter out = response.getWriter();
+                        PrintWriter out = response.getWriter();                        
+                        Runtime runtime = Runtime.getRuntime();
+                        Process process = runtime.exec("/opt/script.sh "+fileName);
                         out.write("uplad success");
                         out.close();
                     }
@@ -221,7 +223,7 @@ public class ServerController {
     
     public void addPolicy(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Runtime runtime = Runtime.getRuntime();
-        Process process = runtime.exec("/opt/script/addPermission "+request.getParameter("printerName")+" "+request.getParameter("group")+" "+request.getParameter("command")+" "+request.getParameter("commandValue"));
+        Process process = runtime.exec("ssh 192.168.1.230:/opt/script/addPermission "+request.getParameter("printerName")+" "+request.getParameter("group")+" "+request.getParameter("command")+" "+request.getParameter("commandValue"));
     }
 
     public void download(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException {
@@ -245,6 +247,6 @@ public class ServerController {
     }
     public void deletePrinter (HttpServletRequest request, HttpServletResponse response) throws IOException {
         Runtime runtime = Runtime.getRuntime();
-        Process process = runtime.exec("/opt/script/deletePrinter "+request.getParameter("printerName"));
+        Process process = runtime.exec("ssh 192.168.1.230:/opt/script/deletePrinter "+request.getParameter("printerName"));
     }
 }
