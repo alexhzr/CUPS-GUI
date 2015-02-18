@@ -5,6 +5,7 @@
  */
 package operations;
 
+import controllers.ServerController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,7 +17,7 @@ public class AddPrinter extends Operation {
 
     @Override
     public void doIt(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ServerController.getInstance().addPrinter(request, response);
     }
     
 }
