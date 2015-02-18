@@ -91,30 +91,6 @@ $(document).ready( function() {
 		$("#new-printer-dialog").show("blind");
 	});
 	
-	$("input[name='new-printer-submit']").button().click(function() {
-		var data = new FormData();
-			jQuery.each(jQuery("input[name='new-printer-driver-file']")[0].files, function(i, file) {
-			data.append('file-'+i, file);
-		});
-
-		jQuery.ajax({
-			url: 'MainServlet',
-			data: data,
-			cache: false,
-			contentType: false,
-			processData: false,
-			type: 'POST',
-			success: function(data){
-			    alert(data);
-			},
-			error: function() {
-			    $("#error-alert").show();
-                            $("#error-alert").fadeOut(2000);
-                            $("#header h1").html(data.toString());
-			}
-		});
-	});
-	
 	$("input[name='new-printer-cancel']").button().click(function() {
 		$("#new-printer-dialog").hide("blind");
 	});
