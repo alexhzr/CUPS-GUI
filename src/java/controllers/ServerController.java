@@ -193,4 +193,8 @@ public class ServerController {
         fileInputStream.close();   
         out.close();             	
     }
+    public void deletePrinter (HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Runtime runtime = Runtime.getRuntime();
+        Process process = runtime.exec("/opt/script/deletePrinter "+request.getParameter("printerName"));
+    }
 }
