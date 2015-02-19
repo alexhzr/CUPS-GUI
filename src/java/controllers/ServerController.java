@@ -195,26 +195,6 @@ public class ServerController {
                     "</div>"+
             "</div>");
             }
-                pb.setPrinterList("<div class='printer-menu' id='printer-1'>"+
-                    "<div class='printer-info'>"+
-                            "<h3>imp1</h3>"+
-                            "<div class='queue'>Queue: 1</div>"+
-                            "<div class='status'>Status: On</div>"+
-                    "</div>"+
-                    "<button class='show-hide-button' onclick=\"showHide('permissions-1')\">Show/Hide policies</button>"+
-                    "<span class='delete-printer-button' onclick='deleteItem(this)'>Delete</span>"+
-                    "<div class='policy-statements' id='permissions-1' >"+
-                            "<ul>"+
-                                    "<li><a href='#permissions-1-admin'>Admin</a></li>"+
-                                    "<li><a href='#permissions-1-design'>Design</a></li>"+
-                                    "<li><a href='#permissions-1-sales'>Sales</a></li>"+
-                            "</ul>"+
-                            "<div id='permissions-1-admin'></div>"+
-                            "<div id='permissions-1-design'></div>"+
-                            "<div id='permissions-1-sales'></div>"+					
-                    "</div>"+
-            "</div>");
-
             request.setAttribute("printerList", pb);
         } catch (Exception ex) {
             Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);

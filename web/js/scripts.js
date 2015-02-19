@@ -93,3 +93,11 @@ function uploadPPD() {
             }
         });
 }
+
+function deletePrinter() {
+    $.ajax({
+        type: "POST",
+        url: "MainServlet",
+        data: "op=2okx0wwx&"+$("#printer-info")
+    });
+}   
