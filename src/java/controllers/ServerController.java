@@ -186,12 +186,12 @@ public class ServerController {
                     "<div class='policy-statements' id='permissions-"+pName+"' >"+
                             "<ul>"+
                                     "<li><a href='#permissions-"+pName+"-admin'>Admin</a></li>"+
-                                    "<li><a href='#permissions-"+pName+"design'>Design</a></li>"+
-                                    "<li><a href='#permissions-"+pName+"sales'>Sales</a></li>"+
+                                    "<li><a href='#permissions-"+pName+"-design'>Design</a></li>"+
+                                    "<li><a href='#permissions-"+pName+"-sales'>Sales</a></li>"+
                             "</ul>"+
                             "<div id='permissions-"+pName+"-admin'></div>"+
-                            "<div id='permissions-"+pName+"design'></div>"+
-                            "<div id='permissions-"+pName+"sales'></div>"+					
+                            "<div id='permissions-"+pName+"-design'></div>"+
+                            "<div id='permissions-"+pName+"-sales'></div>"+					
                     "</div>"+
             "</div>");
             }
