@@ -61,7 +61,7 @@ function deleteItem(item) {
         modal: true,
         buttons: {
             "Accept": function() {
-                $(item).parent().remove();
+                deletePrinter($(item).parent().attr("id"));
                 $( this ).dialog( "close" );
             },
             Cancel: function() {
@@ -89,15 +89,34 @@ function uploadPPD() {
             },
             error: function() {
                 $("#error-alert").show();
-                $("#error-alert").fadeOut(2000);
+                $("#error-alert").fadeOut(4000);
             }
         });
 }
-
-function deletePrinter() {
+function listPrinter() {
+    $.ajax({
+       type: "POST",
+       url: "MainServlet",
+       data: "op=hjfksdf7",
+       success: function(msg) {
+           $("#wrapper").html(msg);
+       }
+    });
+}
+function deletePrinter(pName) {
     $.ajax({
         type: "POST",
         url: "MainServlet",
-        data: "op=2okx0wwx&"+$("#printer-info")
+        data: "op=2okx0wwx&pName="+pName,
+        success: function(data){
+            //alert(data);
+        },
+        done: function() {
+            listPrinter();
+        },
+        error: function() {
+            $("#error-alert").show();
+            $("#error-alert").fadeOut(4000);
+        }
     });
 }   

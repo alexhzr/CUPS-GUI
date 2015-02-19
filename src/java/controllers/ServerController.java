@@ -175,7 +175,7 @@ public class ServerController {
             PrinterBean pb = new PrinterBean();
             for(CupsPrinter printer : client.getPrinters()) {
                 String pName = printer.getName();
-                pb.setPrinterList("<div class='printer-menu' id='printer-'"+pName+"'>"+
+                pb.setPrinterList("<div class='printer-menu' id='"+pName+"'>"+
                     "<div class='printer-info'>"+
                             "<h3>"+pName+"</h3>"+
                             "<div class='queue'>Queue: "+printer.getJobs(WhichJobsEnum.NOT_COMPLETED, null, true).size()+"</div>"+
@@ -227,6 +227,6 @@ public class ServerController {
     }
     public void deletePrinter (HttpServletRequest request, HttpServletResponse response) throws IOException {
         Runtime runtime = Runtime.getRuntime();
-        Process process = runtime.exec("ssh 192.168.1.230:/opt/script/deletePrinter "+request.getParameter("printerName"));
+        Process process = runtime.exec("ssh cups /opt/script/deletePrinter "+request.getParameter("pName"));
     }
 }
