@@ -77,7 +77,6 @@ public class ServerController {
         } catch (Exception ex) {
             Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException {
@@ -175,7 +174,7 @@ public class ServerController {
             PrinterBean pb = new PrinterBean();
             for(CupsPrinter printer : client.getPrinters()) {
                 String pName = printer.getName();
-                pb.setPrinterList("<div class='printer-menu' id='"+pName+"'>"+
+                pb.setPrinterList("<div class='printer-menu' id='printer-'"+pName+"'>"+
                     "<div class='printer-info'>"+
                             "<h3>"+pName+"</h3>"+
                             "<div class='queue'>Queue: "+printer.getJobs(WhichJobsEnum.NOT_COMPLETED, null, true).size()+"</div>"+
@@ -186,12 +185,12 @@ public class ServerController {
                     "<div class='policy-statements' id='permissions-"+pName+"' >"+
                             "<ul>"+
                                     "<li><a href='#permissions-"+pName+"-admin'>Admin</a></li>"+
-                                    "<li><a href='#permissions-"+pName+"-design'>Design</a></li>"+
-                                    "<li><a href='#permissions-"+pName+"-sales'>Sales</a></li>"+
+                                    "<li><a href='#permissions-"+pName+"design'>Design</a></li>"+
+                                    "<li><a href='#permissions-"+pName+"sales'>Sales</a></li>"+
                             "</ul>"+
                             "<div id='permissions-"+pName+"-admin'></div>"+
-                            "<div id='permissions-"+pName+"-design'></div>"+
-                            "<div id='permissions-"+pName+"-sales'></div>"+					
+                            "<div id='permissions-"+pName+"design'></div>"+
+                            "<div id='permissions-"+pName+"sales'></div>"+					
                     "</div>"+
             "</div>");
             }
@@ -227,6 +226,6 @@ public class ServerController {
     }
     public void deletePrinter (HttpServletRequest request, HttpServletResponse response) throws IOException {
         Runtime runtime = Runtime.getRuntime();
-        Process process = runtime.exec("ssh cups /opt/script/deletePrinter "+request.getParameter("pName"));
+        Process process = runtime.exec("ssh 192.168.1.230:/opt/script/deletePrinter "+request.getParameter("printerName"));
     }
 }
