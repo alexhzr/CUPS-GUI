@@ -77,7 +77,6 @@ public class ServerController {
         } catch (Exception ex) {
             Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException {
