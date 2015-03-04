@@ -83,7 +83,6 @@ public class ServerController {
         } catch (Exception ex) {
             Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, ServletException {
@@ -177,32 +176,32 @@ public class ServerController {
     
     public void listPrinter(HttpServletRequest request, HttpServletResponse response) {
         try {
-                CupsClient client = new CupsClient("192.168.1.230", 631);
-                PrinterBean pb = new PrinterBean();
-                for(CupsPrinter printer : client.getPrinters()) {
-                    String pName = printer.getName();
-                    pb.setPrinterList("<div class='printer-menu' id='"+pName+"'>"+
-                        "<div class='printer-info'>"+
-                                "<h3>"+pName+"</h3>"+
-                                "<div class='queue'>Queue: "+printer.getJobs(WhichJobsEnum.NOT_COMPLETED, null, true).size()+"</div>"+
-                                "<div class='status'>Status: On</div>"+
-                        "</div>"+
-                        "<button class='show-hide-button' onclick=\"showHide('permissions-"+pName+"')\">Show/Hide policies</button>"+
-                        "<span class='delete-printer-button' onclick=\"deletePrinter('"+pName+"')\">Delete</span>"+
-                        "<div class='policy-statements' id='permissions-"+pName+"' >"+
-                                "<ul>"+
-                                        "<li><a href='#permissions-"+pName+"-admin'>Admin</a></li>"+
-                                        "<li><a href='#permissions-"+pName+"-design'>Design</a></li>"+
-                                        "<li><a href='#permissions-"+pName+"-sales'>Sales</a></li>"+
-                                "</ul>"+
-                                "<div id='permissions-"+pName+"-admin'></div>"+
-                                "<div id='permissions-"+pName+"-design'></div>"+
-                                "<div id='permissions-"+pName+"-sales'></div>"+					
-                        "</div>"+
-                "</div>");
+            CupsClient client = new CupsClient("192.168.1.230", 631);
+            PrinterBean pb = new PrinterBean();
+            for(CupsPrinter printer : client.getPrinters()) {
+                String pName = printer.getName();
+                pb.setPrinterList("<div class='printer-menu' id='"+pName+"'>"+
+                    "<div class='printer-info'>"+
+                            "<h3>"+pName+"</h3>"+
+                            "<div class='queue'>Queue: "+printer.getJobs(WhichJobsEnum.NOT_COMPLETED, null, true).size()+"</div>"+
+                            "<div class='status'>Status: On</div>"+
+                    "</div>"+
+                    "<button class='show-hide-button' onclick=\"showHide('permissions-"+pName+"')\">Show/Hide policies</button>"+
+                    "<span class='delete-printer-button' onclick=\"deletePrinter('"+pName+"')\">Delete</span>"+
+                    "<div class='policy-statements' id='permissions-"+pName+"' >"+
+                            "<ul>"+
+                                    "<li><a href='#permissions-"+pName+"-admin'>Admin</a></li>"+
+                                    "<li><a href='#permissions-"+pName+"-design'>Design</a></li>"+
+                                    "<li><a href='#permissions-"+pName+"-sales'>Sales</a></li>"+
+                            "</ul>"+
+                            "<div id='permissions-"+pName+"-admin'></div>"+
+                            "<div id='permissions-"+pName+"-design'></div>"+
+                            "<div id='permissions-"+pName+"-sales'></div>"+					
+                    "</div>"+
+            "</div>");
                 }
             if(request.getParameter("fromAjax") == null) {
-            request.setAttribute("printerList", pb);
+                request.setAttribute("printerList", pb);
             } else {
                 PrintWriter out = response.getWriter();
                 out.write(pb.getPrinterList());

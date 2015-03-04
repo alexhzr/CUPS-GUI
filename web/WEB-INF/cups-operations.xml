@@ -9,4 +9,8 @@
     <operation id="2okx0wwx" class="DeletePrinter" groups="10000"></operation>
     <operation id="ooo8821s" class="Download" groups="*"></operation>
     <operation id="83gdhxi2" class="AskFinished" groups="*"></operation>
+    <operation id="asdfasdf" class="List" groups="*"></operation>
+    <operation id="asdfasrr" class="AddClass" groups="*"></operation>
+    <operation id="asasdgre" class="AddPermission" groups="*"></operation>
+    <operation id="asertttt" class="DeleteClass" groups="*"></operation>
 </root>
