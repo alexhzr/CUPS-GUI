@@ -45,38 +45,37 @@ public class HibernateController {
             Classes c = (Classes) iterator.next();
             out.write("Nombre: "+c.getNombre());
         }
-        /*PrintWriter out = null;
-        Session session = null;
-        Transaction tx = null;
-        try {
-            out = response.getWriter();
-            session = HibernateUtil.getSessionFactory().openSession();
-            tx = session.beginTransaction();
-            List list = session.createQuery("FROM Zona").list();
-            for(Iterator iterator = list.iterator(); iterator.hasNext();) {
-                Zona zona = (Zona) iterator.next();
-                out.write("Nombre: "+zona.getNombre());
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(ListZone.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            out.close();
-            session.close();*/
     }
     
     public void addValuePermission(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String valor = "valor del permiso";
-        
-        
+        String valuePermission = request.getParameter("value");
+        String namePermission = request.getParameter("permission");
+        String nameClass = request.getParameter("class");
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        
-        // session.createQuery("select classes.id from Classes classes where classes.nombre like 'clase1'");
-        //select classes.id from Classes classes where classes.nombre like 'clase1'
-        
-        ClassesPermission value = new ClassesPermission();
-        value.setValor(valor);
-        session.save(value);
+        Classes idClass = (Classes) session.createQuery("select classes.id from Classes classes where classes.nombre like '"+nameClass+"'").uniqueResult();
+        Permission idPermission = (Permission) session.createQuery("select permission.id from Permission permission where permission.description like '"+namePermission+"'").uniqueResult();
+        ClassesPermission cp = new ClassesPermission();
+        cp.setValor(valuePermission);
+        cp.setClasses(idClass);
+        cp.setPermission(idPermission);
+        session.save(cp);
+        tx.commit();
+    }
+    
+    public void DeletePermission(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String idPermission = request.getParameter("idPermission");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        session.createQuery("delete from Pemission where description="+idPermission).executeUpdate();
+        tx.commit();
+    }
+    
+    public void DeleteClassePermission(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String id = request.getParameter("id");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        session.createQuery("delete from ClassesPemission where id="+id).executeUpdate();
         tx.commit();
     }
     
