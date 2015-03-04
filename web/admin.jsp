@@ -46,7 +46,9 @@
 				<input type="button" name="new-printer-submit" value="Save" />
 				<input type="button" name="new-printer-cancel" value="Cancel" />
 			</div>
+                        <div id="printerList">
 			<%= printerList.getPrinterList() %>
+                        </div>
                 </div>
 	</body>
 </html>

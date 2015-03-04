@@ -9,6 +9,18 @@ $(document).ready( function() {
     $("#policy-menu p").draggable({
         helper: "clone"
     });
+    // buttons
+        $("#add-printer-button").button({
+                icons: { primary: "ui-icon-plusthick", secondary: null }
+        }).click(function() {
+                $("#new-printer-dialog").show("blind");
+        });
+
+        preparePrinterList();
+    //
+});
+
+function preparePrinterList() {
 
     $(".policy-statements div").droppable({
         drop: function( event, ui ) {
@@ -19,15 +31,9 @@ $(document).ready( function() {
             }
         }
     });
-    // buttons
+    
     $("#exitButton").button({
             icons: { primary: "ui-icon-power", secondary: null }
-    });
-
-    $("#add-printer-button").button({
-            icons: { primary: "ui-icon-plusthick", secondary: null }
-    }).click(function() {
-            $("#new-printer-dialog").show("blind");
     });
 
     $("input[name='new-printer-submit']").button().click(function() {
@@ -45,8 +51,7 @@ $(document).ready( function() {
     $(".show-hide-button").button();
 
     $(".policy-statements").tabs();
-    //
-});
+}
 
 function showHide(id) {
     $("#"+id).toggle("blind");
@@ -93,30 +98,44 @@ function uploadPPD() {
             }
         });
 }
+
 function listPrinter() {
     $.ajax({
        type: "POST",
        url: "MainServlet",
-       data: "op=hjfksdf7",
+       data: "op=hjfksdf7&fromAjax=yes",
        success: function(msg) {
-           $("#wrapper").html(msg);
+            $("#printerList").html(msg);
+            preparePrinterList();
        }
     });
 }
+
 function deletePrinter(pName) {
     $.ajax({
         type: "POST",
         url: "MainServlet",
         data: "op=2okx0wwx&pName="+pName,
-        success: function(data){
-            //alert(data);
-        },
-        done: function() {
-            listPrinter();
+        success: function(threadName){
+            var interval = setInterval(function() {askFinished(threadName, interval);}, 1000);
         },
         error: function() {
             $("#error-alert").show();
             $("#error-alert").fadeOut(4000);
         }
     });
-}   
+}
+var pruebaJSON;
+function askFinished(threadName, interval) {
+    $.ajax({
+        type: "POST",
+        url: "MainServlet",
+        data: "op=83gdhxi2&threadName="+threadName,
+        success: function(data){
+            if (data.isFinished) {
+                clearInterval(interval);
+                listPrinter();
+            }
+        }
+    });    
+}

@@ -6,15 +6,12 @@
 package servlets;
 
 
-import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
 import controllers.ItemOperation;
-import controllers.LDAPConn;
 import controllers.ServerController;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Hashtable;
-import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -25,7 +22,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import javax.xml.parsers.ParserConfigurationException;
 import operations.Operation;
@@ -68,6 +64,7 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, LDAPException {
         response.setContentType("text/html;charset=UTF-8");
+        Map<String, String[]> parametros = request.getParameterMap();
         if (!ServletFileUpload.isMultipartContent(request)) {
             String codop = request.getParameter("op");
             if(codop != null) {

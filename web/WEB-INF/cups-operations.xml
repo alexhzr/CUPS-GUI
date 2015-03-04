@@ -8,4 +8,5 @@
     <operation id="mkd9mnx2" class="AddPrinter" groups="10000"></operation>
     <operation id="2okx0wwx" class="DeletePrinter" groups="10000"></operation>
     <operation id="ooo8821s" class="Download" groups="*"></operation>
+    <operation id="83gdhxi2" class="AskFinished" groups="*"></operation>
 </root>

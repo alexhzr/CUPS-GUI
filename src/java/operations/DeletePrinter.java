@@ -24,6 +24,8 @@ public class DeletePrinter extends Operation {
             ServerController.getInstance().deletePrinter(request, response);
         } catch (IOException ex) {
             Logger.getLogger(DeletePrinter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DeletePrinter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

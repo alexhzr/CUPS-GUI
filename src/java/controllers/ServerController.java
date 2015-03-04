@@ -7,6 +7,8 @@ package controllers;
 
 
 import beans.PrinterBean;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
 import java.io.File;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,12 +36,15 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.cups4j.WhichJobsEnum;
 
 import servlets.MainServlet;
+import threads.DeletePrinterThread;
+import threads.MyThread;
 
 /**
  *
  * @author Álex
  */
 public class ServerController {
+    private Hashtable<String, MyThread> threadsList = new Hashtable();
     
     private ServerController() {
     }
@@ -171,31 +177,38 @@ public class ServerController {
     
     public void listPrinter(HttpServletRequest request, HttpServletResponse response) {
         try {
-            CupsClient client = new CupsClient("192.168.1.230", 631);
-            PrinterBean pb = new PrinterBean();
-            for(CupsPrinter printer : client.getPrinters()) {
-                String pName = printer.getName();
-                pb.setPrinterList("<div class='printer-menu' id='"+pName+"'>"+
-                    "<div class='printer-info'>"+
-                            "<h3>"+pName+"</h3>"+
-                            "<div class='queue'>Queue: "+printer.getJobs(WhichJobsEnum.NOT_COMPLETED, null, true).size()+"</div>"+
-                            "<div class='status'>Status: On</div>"+
-                    "</div>"+
-                    "<button class='show-hide-button' onclick=\"showHide('permissions-"+pName+"')\">Show/Hide policies</button>"+
-                    "<span class='delete-printer-button' onclick='deleteItem(this)'>Delete</span>"+
-                    "<div class='policy-statements' id='permissions-"+pName+"' >"+
-                            "<ul>"+
-                                    "<li><a href='#permissions-"+pName+"-admin'>Admin</a></li>"+
-                                    "<li><a href='#permissions-"+pName+"-design'>Design</a></li>"+
-                                    "<li><a href='#permissions-"+pName+"-sales'>Sales</a></li>"+
-                            "</ul>"+
-                            "<div id='permissions-"+pName+"-admin'></div>"+
-                            "<div id='permissions-"+pName+"-design'></div>"+
-                            "<div id='permissions-"+pName+"-sales'></div>"+					
-                    "</div>"+
-            "</div>");
-            }
+                CupsClient client = new CupsClient("192.168.1.230", 631);
+                PrinterBean pb = new PrinterBean();
+                for(CupsPrinter printer : client.getPrinters()) {
+                    String pName = printer.getName();
+                    pb.setPrinterList("<div class='printer-menu' id='"+pName+"'>"+
+                        "<div class='printer-info'>"+
+                                "<h3>"+pName+"</h3>"+
+                                "<div class='queue'>Queue: "+printer.getJobs(WhichJobsEnum.NOT_COMPLETED, null, true).size()+"</div>"+
+                                "<div class='status'>Status: On</div>"+
+                        "</div>"+
+                        "<button class='show-hide-button' onclick=\"showHide('permissions-"+pName+"')\">Show/Hide policies</button>"+
+                        "<span class='delete-printer-button' onclick=\"deletePrinter('"+pName+"')\">Delete</span>"+
+                        "<div class='policy-statements' id='permissions-"+pName+"' >"+
+                                "<ul>"+
+                                        "<li><a href='#permissions-"+pName+"-admin'>Admin</a></li>"+
+                                        "<li><a href='#permissions-"+pName+"-design'>Design</a></li>"+
+                                        "<li><a href='#permissions-"+pName+"-sales'>Sales</a></li>"+
+                                "</ul>"+
+                                "<div id='permissions-"+pName+"-admin'></div>"+
+                                "<div id='permissions-"+pName+"-design'></div>"+
+                                "<div id='permissions-"+pName+"-sales'></div>"+					
+                        "</div>"+
+                "</div>");
+                }
+            if(request.getParameter("fromAjax") == null) {
             request.setAttribute("printerList", pb);
+            } else {
+                PrintWriter out = response.getWriter();
+                out.write(pb.getPrinterList());
+                out.close();
+            }
+            
         } catch (Exception ex) {
             Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -222,11 +235,38 @@ public class ServerController {
         fileInputStream.close();   
         out.close();             	
     }
+    
     public void addPrinter (HttpServletRequest request, HttpServletResponse response) {
         
     }
-    public void deletePrinter (HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Runtime runtime = Runtime.getRuntime();
-        Process process = runtime.exec("ssh cups /opt/script/deletePrinter "+request.getParameter("pName"));
+    
+    public void deletePrinter(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {
+        PrintWriter out = response.getWriter();
+        String pName = request.getParameter("pName");
+        if(!threadsList.contains(pName)) {
+            DeletePrinterThread dpt = new DeletePrinterThread(request, pName);
+            dpt.start();
+            threadsList.put(dpt.getName(), dpt);
+        } 
+        
+        out.write(pName);
+        out.close();
+    }
+    
+    public void askFinished(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            PrintWriter out = response.getWriter();
+            String threadName = request.getParameter("threadName");
+            boolean isFinished = threadsList.get(threadName).isFinished();
+            if(isFinished)
+                threadsList.remove(threadName);
+            response.setContentType("application/json");
+            OperationStatus operationStatus = new OperationStatus(isFinished, "hola");
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.create();
+            out.write(gson.toJson(operationStatus));
+        } catch (IOException ex) {
+            Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
