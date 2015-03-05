@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import beans.GroupsBean;
 import com.unboundid.ldap.sdk.Filter;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPSearchException;
@@ -13,6 +14,8 @@ import com.unboundid.ldap.sdk.SearchResultEntry;
 import com.unboundid.ldap.sdk.SearchScope;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -54,14 +57,14 @@ public class LDAPConn {
         Filter filter = Filter.createPresenceFilter("cn");
         SearchResult searchResult = connection.search(baseDN, SearchScope.SUB, filter, "memberUid", "gidNumber");
         
-        if (searchResult.getEntryCount() != 0) {
+        if(searchResult.getEntryCount() != 0) {
             List<SearchResultEntry> entry = searchResult.getSearchEntries();
             session.setAttribute("groups", new ArrayList<String>());
             ArrayList<String> groups = new ArrayList();
-            for (SearchResultEntry srEntry : entry) {
+            for(SearchResultEntry srEntry : entry) {
                 //Compares 'memberUid' returned from search with 'username' attribute from HTTP session.
                 //If 'memberUid' equals 'username', then gidNumber is added to 'groups' HTTP session attribute.
-                if (srEntry.getAttribute("memberUid").toString().contains(session.getAttribute("username").toString())) 
+                if(srEntry.getAttribute("memberUid").toString().contains(session.getAttribute("username").toString())) 
                     groups.add(srEntry.getAttribute("gidNumber").getValue());
                 
             }
@@ -69,5 +72,25 @@ public class LDAPConn {
         }
         
         return session;
+    }
+    
+    public GroupsBean getPrintingGroups() {
+        String baseDN = "ou=groups, ou=printing, dc=iliberis, dc=com";
+        Filter filter = Filter.createPresenceFilter("cn");
+        try {
+            SearchResult searchResult = connection.search(baseDN, SearchScope.SUB, filter, "cn");
+            if(searchResult.getEntryCount() != 0) {
+                GroupsBean gb = new GroupsBean();
+                List<SearchResultEntry> entry = searchResult.getSearchEntries();
+                for(SearchResultEntry srEntry : entry)
+                    gb.setGroupList(srEntry.getAttributeValue("cn"));
+                
+                return gb;
+            }
+        } catch (LDAPSearchException ex) {
+            Logger.getLogger(LDAPConn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
 }

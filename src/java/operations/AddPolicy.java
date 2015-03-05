@@ -21,7 +21,7 @@ public class AddPolicy extends Operation {
     @Override
     public void doIt(HttpServletRequest request, HttpServletResponse response) {        
         try {
-            ServerController.getInstance().addPolicy(request, response);
+            ServerController.getInstance().addSetting(request, response);
         } catch (IOException ex) {
             Logger.getLogger(AddPolicy.class.getName()).log(Level.SEVERE, null, ex);
         }

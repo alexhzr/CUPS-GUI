@@ -1,16 +1,16 @@
 <root>
-    <operation id="kkjdfuih" class="Login" groups="*"></operation>
-    <operation id="lqo381hx" class="Logout" groups="*"></operation>
-    <operation id="mkxjhdy3" class="Sample" groups="986"></operation>
-    <operation id="kos8821s" class="UploadFile" groups="10000"></operation>
-    <operation id="hjfksdf7" class="ListPrinter" groups="*"></operation>
-    <operation id="qwopiusd" class="AddPolicy" groups="10000"></operation>
-    <operation id="mkd9mnx2" class="AddPrinter" groups="10000"></operation>
-    <operation id="2okx0wwx" class="DeletePrinter" groups="10000"></operation>
-    <operation id="ooo8821s" class="Download" groups="*"></operation>
-    <operation id="83gdhxi2" class="AskFinished" groups="*"></operation>
-    <operation id="asdfasdf" class="List" groups="*"></operation>
-    <operation id="asdfasrr" class="AddClass" groups="*"></operation>
-    <operation id="asasdgre" class="AddPermission" groups="*"></operation>
-    <operation id="asertttt" class="DeleteClass" groups="*"></operation>
+    <operation id="kkjdfuih" class="Login"              groups="*"></operation>
+    <operation id="lqo381hx" class="Logout"             groups="*"></operation>
+    <operation id="mkxjhdy3" class="Sample"             groups="986"></operation>
+    <operation id="kos8821s" class="UploadFile"         groups="10000"></operation>
+    <operation id="hjfksdf7" class="ListPrinter"        groups="*"></operation>
+    <operation id="qwopiusd" class="AddPolicy"          groups="10000"></operation>
+    <operation id="mkd9mnx2" class="AddPrinter"         groups="10000"></operation>
+    <operation id="2okx0wwx" class="DeletePrinter"      groups="10000"></operation>
+    <operation id="ooo8821s" class="Download"           groups="*"></operation>
+    <operation id="83gdhxi2" class="AskFinished"        groups="*"></operation>
+    <operation id="asdfasdf" class="List"               groups="*"></operation>
+    <operation id="asdfasrr" class="AddClass"           groups="*"></operation>
+    <operation id="asasdgre" class="AddPermission"      groups="*"></operation>
+    <operation id="asertttt" class="DeleteClass"        groups="*"></operation>
 </root>
