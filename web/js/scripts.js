@@ -4,9 +4,9 @@ $(document).ready( function() {
     $("#error-alert").hide();
 
     //Draggable y Droppable
-    $( "#policy-menu" ).draggable();
+    $( "#settings-menu" ).draggable();
 
-    $("#policy-menu p").draggable({
+    $("#settings-menu p").draggable({
         helper: "clone"
     });
     // buttons
@@ -22,10 +22,10 @@ $(document).ready( function() {
 
 function preparePrinterList() {
 
-    $(".policy-statements div").droppable({
+    $(".settings-statements div").droppable({
         drop: function( event, ui ) {
             var clase = ui.draggable.context.className;
-            if (clase.search("policy-option") !== -1) {					
+            if (clase.search("settings-option") !== -1) {					
                 $( "<p></p>" ).html( ui.draggable.text() + "<input type='button' onclick='deleteItem(this)' value='Delete'/>" ).appendTo( this );
 
             }
@@ -50,12 +50,16 @@ function preparePrinterList() {
 
     $(".show-hide-button").button();
 
-    $(".policy-statements").tabs();
+    $(".settings-statements").tabs({
+        activate: function(event, ui) {
+            
+        }
+    });
 }
 
 function showHide(id) {
     $("#"+id).toggle("blind");
-    $("#policy-menu").toggle("drop");
+    $("#settings-menu").toggle("drop");
     $("html, body").animate({
             scrollTop: $("#"+id).offset().top/2
     }, 1000);

@@ -188,7 +188,7 @@ public class ServerController {
                     "</div>"+
                     "<button class='show-hide-button' onclick=\"showHide('permissions-"+pName+"')\">Show/Hide policies</button>"+
                     "<span class='delete-printer-button' onclick=\"deletePrinter('"+pName+"')\">Delete</span>"+
-                    "<div class='policy-statements' id='permissions-"+pName+"' >"+
+                    "<div class='settings-statements' id='permissions-"+pName+"' >"+
                             "<ul>"+
                                     "<li><a href='#permissions-"+pName+"-admin'>Admin</a></li>"+
                                     "<li><a href='#permissions-"+pName+"-design'>Design</a></li>"+

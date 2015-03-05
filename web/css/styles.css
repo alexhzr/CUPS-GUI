@@ -104,7 +104,7 @@ body {
 	font-size: 0.9;
 }
 
-.policy-statements {
+.settings-statements {
 	position: relative;
 	border: 1px solid #9cc;
 	margin: 1em 0 0 0;
@@ -114,15 +114,15 @@ body {
 	font-size: smaller;
 }
 
-.printer-menu, .policy-statements, #new-printer-dialog { 
+.printer-menu, .settings-statements, #new-printer-dialog { 
 	border-radius: 5px;
 }
 
-.policy-statements p, #policy-menu p {
+.settings-statements p, #settings-menu p {
 	border-bottom: 1px dashed #090;
 }
 
-#policy-menu {
+#settings-menu {
 	z-index: 2;
 	margin-top: 5em;
 	border: 5px ridge #4297D7;
@@ -134,6 +134,6 @@ body {
 	border-radius: 10px;
 }
 
-.policy-option {
+.settings-option {
 	width: 100%;
 }
