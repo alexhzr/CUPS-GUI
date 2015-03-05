@@ -20,6 +20,8 @@ $(document).ready( function() {
     //
 });
 
+$body = $("body");
+
 function preparePrinterList() {
 
     $(".settings-statements div").droppable({
@@ -120,6 +122,9 @@ function deletePrinter(pName) {
         type: "POST",
         url: "MainServlet",
         data: "op=2okx0wwx&pName="+pName,
+        beforeSend: function() {
+            $("body").addClass("loading");
+        },
         success: function(threadName){
             var interval = setInterval(function() {askFinished(threadName, interval);}, 1000);
         },
@@ -129,17 +134,21 @@ function deletePrinter(pName) {
         }
     });
 }
-var pruebaJSON;
+
 function askFinished(threadName, interval) {
     $.ajax({
         type: "POST",
         url: "MainServlet",
         data: "op=83gdhxi2&threadName="+threadName,
-        success: function(data){
+        success: function(data) {
             if (data.isFinished) {
                 clearInterval(interval);
+                $("body").removeClass("loading");
                 listPrinter();
             }
+        },
+        start: function() {
+            
         }
     });    
 }

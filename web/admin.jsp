@@ -50,6 +50,7 @@
                         <%= groupsList.getGroupList() %>
 			<%= printerList.getPrinterList() %>
                         </div>
+                        <div class="modal"></div>
                 </div>
 	</body>
 </html>
