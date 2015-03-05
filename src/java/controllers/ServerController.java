@@ -67,8 +67,10 @@ public class ServerController {
                 ServerController.getInstance().listPrinter(request, response);
                 RequestDispatcher rd;
                 List<String> groups = (List<String>) session.getAttribute("groups");
-                if(groups.contains("10000"))
+                if(groups.contains("10000")) {
                     rd = request.getRequestDispatcher("admin.jsp");
+                    request.setAttribute("groupsList", LDAPConn.getInstance().getPrintingGroups());
+                }
                 else rd = request.getRequestDispatcher("success.jsp");
                 rd.forward(request, response);
             }
@@ -90,25 +92,6 @@ public class ServerController {
         session.invalidate();
         RequestDispatcher rd = request.getRequestDispatcher("index.html");
         rd.forward(request, response);
-    }
-    
-    public void sample(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {
-        try (PrintWriter out = response.getWriter()) {
-            out.write("sample operation");
-
-        } 
-    }
-    
-    public void shutdown(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {
-        try (PrintWriter out = response.getWriter()) {
-            out.println("Shutdown");
-        } 
-    }
-    
-    public void reboot(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {
-        try (PrintWriter out = response.getWriter()) {
-            out.println("reboot");
-        } 
     }
     
     public boolean userAllowed(List<String> opGroups, HttpServletRequest request) {
@@ -179,24 +162,24 @@ public class ServerController {
             CupsClient client = new CupsClient("192.168.1.230", 631);
             PrinterBean pb = new PrinterBean();
             for(CupsPrinter printer : client.getPrinters()) {
-                String pName = printer.getName();
-                pb.setPrinterList("<div class='printer-menu' id='"+pName+"'>"+
+                String className = printer.getName();
+                pb.setPrinterList("<div class='printer-menu' id='"+className+"'>"+
                     "<div class='printer-info'>"+
-                            "<h3>"+pName+"</h3>"+
+                            "<h3>"+className+"</h3>"+
                             "<div class='queue'>Queue: "+printer.getJobs(WhichJobsEnum.NOT_COMPLETED, null, true).size()+"</div>"+
                             "<div class='status'>Status: On</div>"+
                     "</div>"+
-                    "<button class='show-hide-button' onclick=\"showHide('permissions-"+pName+"')\">Show/Hide policies</button>"+
-                    "<span class='delete-printer-button' onclick=\"deletePrinter('"+pName+"')\">Delete</span>"+
-                    "<div class='policy-statements' id='permissions-"+pName+"' >"+
+                    "<button class='show-hide-button' onclick=\"showHide('permissions-"+className+"')\">Show/Hide policies</button>"+
+                    "<span class='delete-printer-button' onclick=\"deletePrinter('"+className+"')\">Delete</span>"+
+                    "<div class='policy-statements' id='permissions-"+className+"' >"+
                             "<ul>"+
-                                    "<li><a href='#permissions-"+pName+"-admin'>Admin</a></li>"+
-                                    "<li><a href='#permissions-"+pName+"-design'>Design</a></li>"+
-                                    "<li><a href='#permissions-"+pName+"-sales'>Sales</a></li>"+
+                                    "<li><a href='#permissions-"+className+"-permissions'>Admin</a></li>"+
+                                    "<li><a href='#permissions-"+className+"-printers'>Design</a></li>"+
+                                    "<li><a href='#permissions-"+className+"-groups'>Sales</a></li>"+
                             "</ul>"+
-                            "<div id='permissions-"+pName+"-admin'></div>"+
-                            "<div id='permissions-"+pName+"-design'></div>"+
-                            "<div id='permissions-"+pName+"-sales'></div>"+					
+                            "<div id='permissions-"+className+"-permissions'></div>"+
+                            "<div id='permissions-"+className+"-printers'></div>"+
+                            "<div id='permissions-"+className+"-groups'></div>"+					
                     "</div>"+
             "</div>");
                 }
@@ -269,3 +252,4 @@ public class ServerController {
         }
     }
 }
+

@@ -1,6 +1,7 @@
 <%@ page import="java.io.IOException" %>
 <%@ page import="java.util.List" %>
 <jsp:useBean id="printerList" class="beans.PrinterBean" scope="request"/>
+<jsp:useBean id="groupsList" class="beans.GroupsBean" scope="request"/>
 <%
     if (session.getAttribute("username") == null) 
         response.sendRedirect("index.html");
@@ -30,7 +31,7 @@
 			<div><span id="error-alert-icon" class="ui-icon ui-icon-alert"></span>An error ocurred while sending information.</div>
 		</div>
 		<div id="policy-menu">
-		<h3>Politicas de impresiÃ³n</h3>
+		<h3>Politicas de impresión</h3>
 			<p class="policy-option">Opcion 1</p>
 			<p class="policy-option">Opcion 2</p>
 			<p class="policy-option">Opcion 3</p>
@@ -47,6 +48,7 @@
 				<input type="button" name="new-printer-cancel" value="Cancel" />
 			</div>
                         <div id="printerList">
+                        <%= groupsList.getGroupList() %>
 			<%= printerList.getPrinterList() %>
                         </div>
                 </div>
