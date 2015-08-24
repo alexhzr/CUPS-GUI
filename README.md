@@ -6,7 +6,7 @@ To be continued someday...
 ##Collaborators
   - <a href="https://github.com/alexhzr">alexhzr</a> (me)
   - <a href="https://github.com/Franciscorodr">Franciscorodr</a>
-  - <a href="https://github.com/ManriqueDJ">ManriqueDJ</a>
+  - <a href="https://github.com/LuisFcoOrtiz">Luis Fco Ortiz</a>
   - <a href="https://github.com/jaime27">jaime27</a>
 
 ##How does it work?
